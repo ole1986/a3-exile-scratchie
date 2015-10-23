@@ -20,15 +20,15 @@ Placeholder         | File
 
 ### Exile Mission modifications
 
-**Copy the overrides folder into your extracted &lt;MissionFile&gt;**
++ Copy the overrides folder into your extracted &lt;MissionFile&gt;
 
-**Modify the &lt;MissionFile&gt;\config.cpp and add the below line inside `class CfgExileCustomCode`**
++ Modify the &lt;MissionFile&gt;\config.cpp and add the below line inside `class CfgExileCustomCode`
 
 ```
 	ExileClient_gui_xm8_slide_apps_onOpen = "overrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
 ```
 
-**Modify the &lt;MissionFile&gt;\description.ext and add he below line inside  `class CfgRemoteExec -> class Functions`**
++ Modify the &lt;MissionFile&gt;\description.ext and add he below line inside  `class CfgRemoteExec -> class Functions`
 
 ```
 class ExileServer_lottery_network_request { allowedTargets=2; };
@@ -38,14 +38,14 @@ class ExileServer_lottery_network_request { allowedTargets=2; };
 
 *For some reason it does not allow me to use new files in exile_server_config.pbo. thats why its located in exile_server.pbo*
 
-**Copy the code folder into the extracted &lt;ExileServer&gt; directory**
++ Copy the code folder into the extracted &lt;ExileServer&gt; directory
 
 ```
 ExileServer_lottery_network_request.sqf
 ExileServer_lottery_network_winner.sqf
 ```
 
-**Open exile_server.pbo\bootstrap\fn_preInit.sqf and insert the below two lines**
++ Open exile_server.pbo\bootstrap\fn_preInit.sqf and insert the below two lines
 
 ```
 ['ExileServer_lottery_network_request', 'exile_server\code\ExileServer_lottery_network_request.sqf'],
