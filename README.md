@@ -13,9 +13,9 @@ Author: ole1986
 
 Before you can start it is necessary to **unpack** the &lt;MissionFile&gt; and the &lt;ExileServer&gt;
 
-Placeholder         | Example File
+Placeholder         | File
 ------------------- | -------------
-&lt;MissionFile&gt; | Exile.Altis.pbo or Exile.Esseker.pbo
+&lt;MissionFile&gt; | Exile.<Mapname>.pbo (E.g. Exile.Altis.pbo )
 &lt;ExileServer&gt; | exile_server.pbo
 
 ### Exile Mission modifications
