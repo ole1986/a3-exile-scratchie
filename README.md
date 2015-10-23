@@ -79,3 +79,11 @@ call ExileClient_object_trader_create;
 _officeTrader addAction ["<t color='#FFFFFF'>Buy Scratchie(200,-)</t>", { ["buy",ExileClientSessionId, player, ""] remoteExecCall ["ExileServer_lottery_network_request", 2]; }];
 _officeTrader addAction ["<t color='#c72651'>Get Prize!</t>", { ["get",ExileClientSessionId, player, ""] remoteExecCall ["ExileServer_lottery_network_request", 2]; }];
 ```
+
+### Battleye (let the fun begin)
+
++ add the below to the end of line `7 remoteexec` (line number 19?!) in your scripts.txt
+`!="remoteExecCall ["ExileServer_lottery_network_request\","`
+
++ add the below to the end of line `7 ""` in your remoteexec.txt
++ `!"ExileServer_lottery_network_request"`
