@@ -1,6 +1,6 @@
 ## Scratchies (*lottery like* MINIGAME for Exile Mod) v0.2
 
-This extension is licensed under th Arma Public Licence (APL)
+This extension is licensed under the Arma Public Licence (APL)
 
 Author: ole1986
 
@@ -62,7 +62,7 @@ ExileServer_lottery_network_winner.sqf
 
 ### Buy / Get Prize code line
 
-*The below code can be used to buy a scratch from any object you decide*
+*The below code can be used to buy a scratchie from any object you decide*
 
 `["buy",ExileClientSessionId, player, ""] remoteExecCall ["ExileServer_lottery_network_request", 2];`
 
