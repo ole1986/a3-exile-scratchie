@@ -44,7 +44,7 @@ class ExileServer_lottery_network_request { allowedTargets=2; };
 
 *For some reason it does not allow me to use new files in exile_server_config.pbo. thats why its located in exile_server.pbo*
 
-**Copy the code folder into the extracted &lt;ServerFile&gt; directory**
+**Copy the code folder into the extracted &lt;ExileServer&gt; directory**
 
 ```
 ExileServer_lottery_network_request.sqf
