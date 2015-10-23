@@ -6,7 +6,7 @@ Author: ole1986
 
 ### Required Tools
 
-+ Pbo Manager (I use cpbo from http://www.kegetys.fi/category/gaming/armamods/)
++ PBO Manager (I use cpbo from http://www.kegetys.fi/category/gaming/armamods/)
 + Notepad++ or any other Text Editor (https://notepad-plus-plus.org/)
 
 ### Prerequisite
