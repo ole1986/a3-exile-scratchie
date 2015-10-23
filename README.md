@@ -20,7 +20,7 @@ Placeholder         | File
 
 ### Exile Mission modifications
 
-**Copy the overrides folder into your extracted **&lt;MissionFile&gt;
+**Copy the overrides folder into your extracted &lt;MissionFile&gt;**
 
 **Modify the &lt;MissionFile&gt;\config.cpp and add the below line inside `class CfgExileCustomCode`**
 
