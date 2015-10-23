@@ -20,21 +20,15 @@ Placeholder         | File
 
 ### Exile Mission modifications
 
-**&lt;MissionFile&gt;\overrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf**
+**Copy the overrides folder into your extracted **&lt;MissionFile&gt;
 
-This ExileClient file has been overwritten to display the Scratchie "button" inside of XM8
-
-**&lt;MissionFile&gt;\config.cpp**
-
-Add the below line inside `class CfgExileCustomCode`
+**Modify the &lt;MissionFile&gt;\config.cpp and add the below line inside `class CfgExileCustomCode`**
 
 ```
 	ExileClient_gui_xm8_slide_apps_onOpen = "overrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
 ```
 
-**&lt;MissionFile&gt;\description.ext**
-
-Add the below line inside  `class CfgRemoteExec -> class Functions`
+**Modify the &lt;MissionFile&gt;\description.ext and add he below line inside  `class CfgRemoteExec -> class Functions`**
 
 ```
 class ExileServer_lottery_network_request { allowedTargets=2; };
