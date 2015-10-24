@@ -1,4 +1,4 @@
-## Scratchies (*lottery like* MINIGAME for Exile Mod) v0.1
+## Scratchies (*lottery like* minigame for Exile Mod) v0.1
 
 This extension is licensed under the Arma Public Licence (APL)
 
