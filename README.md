@@ -22,7 +22,7 @@ Placeholder            | File
 
 ### Database setup
 
-+ Use the *lottery.sql* file to create two new database tables
++ Import the mysql file *lottery.sql* to create the required tables
 + Copy and repalce the *exile.ini* with the file located in&lt;ExileServerMod&gt;\extDB\sql_custom_v2\
 
 ### Exile Mission modifications
