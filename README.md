@@ -18,9 +18,11 @@ Placeholder         | File
 &lt;MissionFile&gt; | Exile.&lt;Mapname&gt;.pbo (E.g. Exile.Altis.pbo )
 &lt;ExileServer&gt; | exile_server.pbo
 
+**IMPORTANT: The below steps may only work with the original Exile Mod version 0.9.35**
+
 ### Exile Mission modifications
 
-+ Copy the overrides folder into your extracted &lt;MissionFile&gt;
++ Copy the *overrides* folder into your extracted &lt;MissionFile&gt;
 
 + Modify the &lt;MissionFile&gt;\config.cpp and add the below line inside `class CfgExileCustomCode`
 
@@ -28,7 +30,7 @@ Placeholder         | File
 	ExileClient_gui_xm8_slide_apps_onOpen = "overrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
 ```
 
-+ Modify the &lt;MissionFile&gt;\description.ext and add he below line inside  `class CfgRemoteExec -> class Functions`
++ Modify the &lt;MissionFile&gt;\description.ext and add the below line inside  `class CfgRemoteExec -> class Functions`
 
 ```
 class ExileServer_lottery_network_request { allowedTargets=2; };
@@ -38,21 +40,16 @@ class ExileServer_lottery_network_request { allowedTargets=2; };
 
 *For some reason it does not allow me to use new files in exile_server_config.pbo. thats why its located in exile_server.pbo*
 
-+ Copy the code folder into the extracted &lt;ExileServer&gt; directory
++ Copy (and replace) the *code* and *bootstrap* folder into the &lt;ExileServer&gt; directory
+
+*Experts: The below files are being created/modified*
 
 ```
-ExileServer_lottery_network_request.sqf
-ExileServer_lottery_network_winner.sqf
+bootstrap\fn_postInit.sqf - used to add a thread (running every minute) to draw a winner
+bootstrap\fn_preInit.sqf - used to make ExileServer_lottery_network_request and ExileServer_lottery_network_winner availble
+code\ExileServer_lottery_network_request.sqf
+code\ExileServer_lottery_network_winner.sqf
 ```
-
-+ Open exile_server.pbo\bootstrap\fn_preInit.sqf and insert the below two lines
-
-```
-['ExileServer_lottery_network_request', 'exile_server\code\ExileServer_lottery_network_request.sqf'],
-['ExileServer_lottery_network_winner', 'exile_server\code\ExileServer_lottery_network_winner.sqf'],
-```
-
-*right after `forEach [` and before `['ExileServer_object_construction_database_delete...`*
 
 ### Buy / Get Prize code line
 
