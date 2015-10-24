@@ -8,17 +8,22 @@ Author: ole1986
 
 + PBO Manager (I use cpbo from http://www.kegetys.fi/category/gaming/armamods/)
 + Notepad++ or any other Text Editor (https://notepad-plus-plus.org/)
++ Exile Mod version 0.9.35
 
 ### Prerequisite
 
 Before you can start it is necessary to **unpack** the &lt;MissionFile&gt; and the &lt;ExileServer&gt; using your favorite pbo manager
 
-Placeholder         | File
-------------------- | -------------
-&lt;MissionFile&gt; | Exile.&lt;Mapname&gt;.pbo (E.g. Exile.Altis.pbo )
-&lt;ExileServer&gt; | exile_server.pbo
+Placeholder            | File
+---------------------- | -------------
+&lt;MissionFile&gt;    | Exile.&lt;Mapname&gt;.pbo (E.g. Exile.Altis.pbo )
+&lt;ExileServer&gt;    | exile_server.pbo
+&lt;ExileServerMod&gt; | @ExileServer Exile server mod directory located in game directory.
 
-**IMPORTANT: The below steps may only work with the original Exile Mod version 0.9.35**
+### Database setup
+
++ Use the *lottery.sql* file to create two new database tables
++ Copy and repalce the *exile.ini* with the file located in&lt;ExileServerMod&gt;\extDB\sql_custom_v2\
 
 ### Exile Mission modifications
 
@@ -27,7 +32,7 @@ Placeholder         | File
 + Modify the &lt;MissionFile&gt;\config.cpp and add the below line inside `class CfgExileCustomCode`
 
 ```
-	ExileClient_gui_xm8_slide_apps_onOpen = "overrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
+ExileClient_gui_xm8_slide_apps_onOpen = "overrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
 ```
 
 + Modify the &lt;MissionFile&gt;\description.ext and add the below line inside  `class CfgRemoteExec -> class Functions`
@@ -36,7 +41,7 @@ Placeholder         | File
 class ExileServer_lottery_network_request { allowedTargets=2; };
 ```
 
-### Exile Server modifications (exile_server.pbo - not exile_server_config.pbo)
+### Exile Server modifications
 
 *For some reason it does not allow me to use new files in exile_server_config.pbo. thats why its located in exile_server.pbo*
 
@@ -77,7 +82,7 @@ _officeTrader addAction ["<t color='#FFFFFF'>Buy Scratchie(200,-)</t>", { ["buy"
 _officeTrader addAction ["<t color='#c72651'>Get Prize!</t>", { ["get",ExileClientSessionId, player, ""] remoteExecCall ["ExileServer_lottery_network_request", 2]; }];
 ```
 
-### Battleye (let the fun begin)
+### Battleye
 
 + add the below to the end of line `7 remoteexec` (line number 19?!) in your scripts.txt
 
