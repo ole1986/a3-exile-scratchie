@@ -1,5 +1,8 @@
 ## Scratchies (*lottery like* minigame for Exile Mod) v0.1
 
+![Buy a scratch, get the prize](buyget.jpg "Buy a scratch, get the prize")
+![Use the Scratchie](usexm8.jpg "Use the scratchie in XM8")
+
 This extension is licensed under the Arma Public Licence (APL)
 
 Author: ole1986
