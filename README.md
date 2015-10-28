@@ -3,10 +3,13 @@
 ![Buy a scratch, get the prize](buyget.jpg "Buy a scratch, get the prize")
 ![Use the Scratchie](usexm8.jpg "Use the scratchie in XM8")
 
-This extension is licensed under the Arma Public Licence (APL)
+Videos: [PART #1](https://www.youtube.com/watch?v=zVPXYhhYrbU) [PART #2](https://www.youtube.com/watch?v=2MC45ycnOkc) - thanks to Rythron
 
-Author: ole1986
+[Changelog](CHANGELOG.txt)
 
+This extension is licensed under the Arma Public Licence - Author: ole1986
+
+## Installation
 ### Required Tools
 
 + PBO Manager (I use cpbo from http://www.kegetys.fi/category/gaming/armamods/)
