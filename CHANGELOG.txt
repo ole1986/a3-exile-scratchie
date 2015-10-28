@@ -1,0 +1,5 @@
+v0.2 (NOT YET RELEASED)
+- use CfgSettings from exile_server_config config.cpp to setup prize list, chance and costs
+
+v0.1
+- initial version
