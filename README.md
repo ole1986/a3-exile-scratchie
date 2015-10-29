@@ -28,7 +28,7 @@ Placeholder            | File
 ### Database setup
 
 + Import the mysql file `mysql\lottery.sql` into your exile database (through mysql or phpmyadmin for example).
-+ Copy and repalce the `mysql\exile.ini` with the file located in `&lt;ExileServerMod&gt;\extDB\sql_custom_v2\exile.ini`
++ Copy and repalce the `mysql\exile.ini` with the file located in `<ExileServerMod>\extDB\sql_custom_v2\exile.ini`
 
 ### Exile Mission modifications
 
