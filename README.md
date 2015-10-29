@@ -1,4 +1,4 @@
-## Scratchies (*lottery like* minigame for Exile Mod) v0.1
+## Scratchies (*lottery like* minigame for Exile Mod) v0.2
 
 ![Buy a scratch, get the prize](buyget.jpg "Buy a scratch, get the prize")
 ![Use the Scratchie](usexm8.jpg "Use the scratchie in XM8")
@@ -28,13 +28,12 @@ Placeholder            | File
 
 ### Database setup
 
-+ Import the mysql file *lottery.sql* to create the required tables
-+ Copy and repalce the *exile.ini* with the file located in&lt;ExileServerMod&gt;\extDB\sql_custom_v2\
++ Import the mysql file *mysql\lottery.sql* into your exile database.
++ Copy and repalce the *mysql\exile.ini* with the file located in &lt;ExileServerMod&gt;\extDB\sql_custom_v2\exile.ini
 
 ### Exile Mission modifications
 
-+ Copy the *overrides* folder into your &lt;MissionFile&gt;
-+ Copy the *addons* folder into your &lt;MissionFile&gt;
++ Copy the *MissionFile\overrides* and *MissionFile\addons* folder into your &lt;MissionFile&gt; directory
 + Modify the &lt;MissionFile&gt;\config.cpp and add the below line inside `class CfgExileCustomCode`
 
 ```
@@ -49,18 +48,12 @@ class ExileServer_lottery_network_request { allowedTargets=2; };
 
 ### Exile Server modifications
 
-*For some reason it does not allow me to use new files in exile_server_config.pbo. thats why its located in exile_server.pbo*
+**CHANGED IN VERSION >= 0.2**
 
-+ Copy (and replace) the *code* and *bootstrap* folder into the &lt;ExileServer&gt; directory
++ Copy the ExileServerMod\scratchie_server.pbo into your <ExileServerMod>\addons directory
 
-*Experts: The below files are being created/modified*
+*PLEASE MAKE SURE YOU HAVE REMOVED ALL PREVIOUS FILES FROM THE exile_server.pbo*
 
-```
-bootstrap\fn_postInit.sqf - used to add a thread (running every minute) to draw a winner
-bootstrap\fn_preInit.sqf - used to make ExileServer_lottery_network_request and ExileServer_lottery_network_winner availble
-code\ExileServer_lottery_network_request.sqf
-code\ExileServer_lottery_network_winner.sqf
-```
 
 ### Buy / Get Prize code line
 
