@@ -49,7 +49,7 @@ class ExileServer_lottery_network_request { allowedTargets=2; };
 
 **CHANGED IN VERSION >= 0.2**
 
-+ Copy the ExileServerMod\scratchie_server.pbo into your <ExileServerMod>\addons directory
++ Copy the ExileServerMod\scratchie_server.pbo into your &lt;ExileServerMod&gt;\addons directory
 
 *PLEASE MAKE SURE YOU HAVE REMOVED ALL PREVIOUS FILES FROM THE exile_server.pbo*
 
