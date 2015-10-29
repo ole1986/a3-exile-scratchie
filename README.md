@@ -23,17 +23,16 @@ Before you can start it is necessary to **unpack** the &lt;MissionFile&gt; and t
 Placeholder            | File
 ---------------------- | -------------
 &lt;MissionFile&gt;    | Exile.&lt;Mapname&gt;.pbo (E.g. Exile.Altis.pbo )
-&lt;ExileServer&gt;    | exile_server.pbo
-&lt;ExileServerMod&gt; | @ExileServer Exile server mod directory located in game directory.
+&lt;ExileServerMod&gt; | @ExileServer Exile server mod folder located in game directory.
 
 ### Database setup
 
-+ Import the mysql file *mysql\lottery.sql* into your exile database.
++ Import the mysql file *mysql\lottery.sql* into your exile database (through mysql or phpmyadmin for example).
 + Copy and repalce the *mysql\exile.ini* with the file located in &lt;ExileServerMod&gt;\extDB\sql_custom_v2\exile.ini
 
 ### Exile Mission modifications
 
-+ Copy the *MissionFile\overrides* and *MissionFile\addons* folder into your &lt;MissionFile&gt; directory
++ Copy the folders *MissionFile\overrides* and *MissionFile\addons* into your &lt;MissionFile&gt; directory
 + Modify the &lt;MissionFile&gt;\config.cpp and add the below line inside `class CfgExileCustomCode`
 
 ```
