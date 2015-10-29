@@ -1,15 +1,13 @@
 /**
- * Scratchies for Exile Mod v0.1
- * © 2015 ole
- *
- * This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
- * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ * Scratchie - Lottery like minigame for Exile Mod v0.2
+ * Author: ole1986
+ * Date: 2015-10-29
  */
  
-private["_payload", "_request", "_sessionId", "_number", "_player", "_result", "_hasBet", "_prize", "_scratchie","_scratchieCost", "_playerMoney", "_vehicleObject", "_safepos", "_clientId"];
+private["_payload", "_request", "_sessionId", "_number", "_player", "_result", "_hasBet", "_prize", "_scratchie","_scratchieCost", "_playerMoney", "_vehicleObject", "_safepos", "_clientId", "_rand"];
 _payload = _this;
-// YOU CAN SET THE PRICE FOR A SCRATCHIE HERE
-_scratchieCost = 200;
+_scratchieCost = getNumber(configFile >> "CfgSettings" >> "ScratchieSettings" >> "Price");
+_rand = getNumber(configFile >> "CfgSettings" >> "ScratchieSettings" >> "ChanceToWin");
 _scratchie = 0;
 _result = true;
 try 
@@ -21,7 +19,7 @@ try
     
     if (_number == "") then 
     {
-        _number = format ["%1%2%3", round(random 3) , round(random 3) , round(random 3) ];
+        _number = format ["%1%2%3", round(random _rand) + 1, round(random _rand) + 1, round(random _rand) + 1];
     };
     
     format ["DEBUG: ExileServer_lottery_network_request called - Request: %1 SessionId: %2 Number: %3", _request,_sessionId, _number] call ExileServer_util_log;
@@ -47,7 +45,7 @@ try
                 format ["setPrizeDelivered:%1", getPlayerUID _player] call ExileServer_system_database_query_fireAndForget;
                 _safepos = [position _player, 5, 150, 3, 0, 20, 0] call BIS_fnc_findSafePos;
                 
-                _number = format["1%1",_number];
+                _number = format["%1%2%3%4", round(random 9), round(random 9), round(random 9), round(random 9)];
                 
                 _vehicleObject = [_prize, [0,0,1000], (random 360), true, _number] call ExileServer_object_vehicle_createPersistentVehicle;
                 _vehicleObject allowDamage false;

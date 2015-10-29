@@ -1,27 +1,19 @@
 /**
- * Scratchies for Exile Mod v0.1
- * © 2015 ole
- *
- * This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License. 
- * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.
+ * Scratchie - Lottery like minigame for Exile Mod v0.2
+ * Author: ole1986
+ * Date: 2015-10-29
  */
 
-private["_playerList", "_number", "_prices", "_curPrice", "_winners", "_count", "_currentPlayer"];
+private["_playerList", "_number", "_prizes", "_curPrice", "_winners", "_count", "_currentPlayer", "_rand"];
 _winners = [];
 _playerList = nil;
 _number = "111";
-_prices = [ "Exile_Chopper_Hummingbird_Green",
-			"Exile_Chopper_Hummingbird_Civillian_Jeans",
-			"Exile_Car_HEMMT", 
-			"Exile_Car_Ifrit", 
-			"Exile_Car_Offroad_Repair_Guerilla12", 
-			"Exile_Car_Kart_Green", 
-			"Exile_Car_Offroad_Armed_Guerilla08"];
+_prizes = [];
+_rand = getNumber(configFile >> "CfgSettings" >> "ScratchieSettings" >> "ChanceToWin");
 
 try 
 {
-	// calculate the lucky number (from 000 - 333) = 4 ^ 3 = 64 possible numbers
-	_number = format ["%1%2%3", round(random 3) , round(random 3) , round(random 3) ];
+	_number = format ["%1%2%3", round(random _rand) + 1, round(random _rand) + 1, round(random _rand) + 1];
 
 	// receive a list of all players who are participating (only those where its lucky number is not empty)
 	_playerList = "getLotteryPlayers" call ExileServer_system_database_query_selectFull;
@@ -53,8 +45,10 @@ try
 
 	if (count _winners > 0) then 
 	{
+		_prizes = getArray(configFile >> "CfgSettings" >> "ScratchieSettings" >> "VehiclePrize"); // + getArray(configFile >> "CfgSettings" >> "ScratchieSettings" >> "PoptabPrize");
+		
 		// GET A RANDOM PRIZE FOR EACH WINNER
-		_curPrice = _prices call BIS_fnc_selectRandom;
+		_curPrice = _prizes call BIS_fnc_selectRandom;
 	
 		// inform the players about the prize
 		{
