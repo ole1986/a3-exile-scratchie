@@ -1,7 +1,7 @@
 /**
- * Scratchie - Lottery like minigame for Exile Mod v0.2
- * Author: ole1986
- * Date: 2015-10-29
+ * Scratchie - Lottery like minigame for Exile Mod
+ * @author ole1986 - https://github.com/ole1986/a3-exile-scratchie
+ * @version 0.3
  */
  
 private["_payload", "_request", "_sessionId", "_number", "_player", "_result", "_hasBet", "_prize", "_scratchie","_scratchieCost", "_playerMoney", "_vehicleObject", "_safepos", "_clientId", "_rand"];
@@ -22,7 +22,7 @@ try
         _number = format ["%1%2%3", round(random _rand) + 1, round(random _rand) + 1, round(random _rand) + 1];
     };
     
-    format ["DEBUG: ExileServer_lottery_network_request called - Request: %1 SessionId: %2 Number: %3", _request,_sessionId, _number] call ExileServer_util_log;
+    //format ["DEBUG: ExileServer_lottery_network_request called - Request: %1 SessionId: %2 Number: %3", _request,_sessionId, _number] call ExileServer_util_log;
     
     // check if the player has already participated a lottery for this round
     _hasBet = format ["playerInLottery:%1", getPlayerUID _player] call ExileServer_system_database_query_selectSingle;          
@@ -38,33 +38,62 @@ try
     switch (_request) do {
         case "get": {
             // check if the player has already participated a lottery for this round
-            _prize = format ["getLotteryPrize:%1", getPlayerUID _player] call ExileServer_system_database_query_selectSingleField;
+            _prize = format ["getLotteryPrize:%1", getPlayerUID _player] call ExileServer_system_database_query_selectSingle;
             
             if !(isNil "_prize") then 
             {
                 format ["setPrizeDelivered:%1", getPlayerUID _player] call ExileServer_system_database_query_fireAndForget;
-                _safepos = [position _player, 5, 150, 3, 0, 20, 0] call BIS_fnc_findSafePos;
                 
-                _number = format["%1%2%3%4", round(random 9), round(random 9), round(random 9), round(random 9)];
-                
-                _vehicleObject = [_prize, [0,0,1000], (random 360), true, _number] call ExileServer_object_vehicle_createPersistentVehicle;
-                _vehicleObject allowDamage false;
-                _vehicleObject removeAllEventHandlers "HandleDamage";
-                _vehicleObject addEventHandler["HandleDamage",{false}];
-                _safepos set [2,0.1];
-                _vehicleObject setPosATL _safepos;
-                _vehicleObject setVariable ["ExileOwnerUID", (getPlayerUID _player)];
-                _vehicleObject setVariable ["ExileIsLocked",0];
-                _vehicleObject lock 0;
-                _vehicleObject call ExileServer_object_vehicle_database_insert;
-                _vehicleObject call ExileServer_object_vehicle_database_update;
-                
-                _playerMoney = _player getVariable ["ExileMoney", 0];
-                [_sessionId, "purchaseVehicleResponse", [0, netId _vehicleObject,  str _playerMoney]] call ExileServer_system_network_send_to;
-                _vehicleObject allowDamage true;
-                _vehicleObject removeAllEventHandlers "HandleDamage";
-                
-                [_player, "dynamicTextRequest", [format ["UNLOCK PIN: %1<br/><br/>DO NOT FORGET", _number], 0, 2, "#ffffff"]] call ExileServer_system_network_send_to;
+                switch (_prize select 1) do
+                {
+                    case "VehiclePrize":
+                    {
+                        _safepos = [position _player, 5, 150, 3, 0, 20, 0] call BIS_fnc_findSafePos;
+                        _number = format["%1%2%3%4", round(random 9), round(random 9), round(random 9), round(random 9)];
+                        
+                        _vehicleObject = [_prize select 0, [0,0,1000], (random 360), true, _number] call ExileServer_object_vehicle_createPersistentVehicle;
+                        _vehicleObject allowDamage false;
+                        _vehicleObject removeAllEventHandlers "HandleDamage";
+                        _vehicleObject addEventHandler["HandleDamage",{false}];
+                        _safepos set [2,0.1];
+                        _vehicleObject setPosATL _safepos;
+                        _vehicleObject setVariable ["ExileOwnerUID", (getPlayerUID _player)];
+                        _vehicleObject setVariable ["ExileIsLocked",0];
+                        _vehicleObject lock 0;
+                        _vehicleObject call ExileServer_object_vehicle_database_insert;
+                        _vehicleObject call ExileServer_object_vehicle_database_update;
+                        
+                        _playerMoney = _player getVariable ["ExileMoney", 0];
+                        [_sessionId, "purchaseVehicleResponse", [0, netId _vehicleObject,  str _playerMoney]] call ExileServer_system_network_send_to;
+                        _vehicleObject allowDamage true;
+                        _vehicleObject removeAllEventHandlers "HandleDamage";
+                        
+                        [_player, "dynamicTextRequest", [format ["UNLOCK PIN: %1<br/><br/>DO NOT FORGET", _number], 0, 2, "#ffffff"]] call ExileServer_system_network_send_to;
+                    };
+                    case "PoptabPrize":
+                    {
+                        _playerMoney = _player getVariable ["ExileMoney", 0];
+                        _playerMoney = _playerMoney + parseNumber(_prize select 0);
+                        _player setVariable ["ExileMoney", _playerMoney];
+                        format["setAccountMoney:%1:%2", _playerMoney, (getPlayerUID _player)] call ExileServer_system_database_query_fireAndForget;
+                        [_sessionID, "moneyReceivedRequest", [str _playerMoney, "Scratchie"]] call ExileServer_system_network_send_to;
+                    };
+                    case "WeaponPrize":
+                    {
+                        // use _rand for the crate lifetime setting
+                        _rand = getNumber(configFile >> "CfgSettings" >> "ScratchieSettings" >> "CrateLifetime");
+                        
+                        _vehicleObject = createVehicle ["Land_MetalCase_01_small_F", position _player, [], 0, "CAN_COLLIDE"]; 
+                        _vehicleObject addWeaponCargoGlobal [_prize select 0, 1];
+                        
+                        [_vehicleObject, _prize select 0] call ExileServer_lottery_crate_xtras;
+                        
+                        // do a spawn and sleep X minutes until crate will be deleted
+                        [_vehicleObject, _rand] spawn {  sleep (_this select 1); deleteVehicle (_this select 0);  };
+                        // inform the player
+                        [_player, "dynamicTextRequest", [format ["YOUR PRIZE SPAWND IN THE CRATE<br/><br/>Lifetime %1 minute(s)", round(_rand / 60)], 0, 2, "#ffffff"]] call ExileServer_system_network_send_to;
+                    };
+                };
                 
             } else {
                 [_player, "notificationRequest", ["LockKickWarning", ["No prize for you :-("]]] call ExileServer_system_network_send_to;

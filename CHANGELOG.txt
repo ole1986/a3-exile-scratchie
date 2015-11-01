@@ -1,7 +1,18 @@
+v0.3
+- support for poptabs and weapon prizes
+- additional configuration settings
+- updated database table 'xtra_lottery_winner' to support prize clases
+- added ExileServer_lottery_crate_xtras.sqf to setup ammunition properly
+- better chance to win a prize (ChangeToWin = 2), check out http://unknown-sanctuary.tk/scratchie.php for more details
+
 v0.2
 - separated scratchie fron the exile_server.pbo
 - easier installation using scratchie_server.pbo
 - use config.cpp from its own pbo file
+
+IMPORTANT:
+lottery.sql AND exile.ini HAS BEEN UPDATED.
+No need to update the MissionFile
 
 v0.1
 - initial version

@@ -20,7 +20,8 @@ private ['_code', '_function', '_file'];
 forEach 
 [
 	['ExileServer_lottery_network_request', 'scratchie_server\code\ExileServer_lottery_network_request.sqf'],
-	['ExileServer_lottery_network_winner', 'scratchie_server\code\ExileServer_lottery_network_winner.sqf']
+	['ExileServer_lottery_network_winner', 'scratchie_server\code\ExileServer_lottery_network_winner.sqf'],
+    ['ExileServer_lottery_crate_xtras', 'scratchie_server\code\ExileServer_lottery_crate_xtras.sqf']
 ];
 
 diag_log "[SCRATCHIE] Loading Scratchie addon...";
