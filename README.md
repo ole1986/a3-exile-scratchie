@@ -9,7 +9,7 @@
 
 Videos: [PART #1](https://www.youtube.com/watch?v=zVPXYhhYrbU) [PART #2](https://www.youtube.com/watch?v=2MC45ycnOkc) - thanks to Rythron
 
-[Changelog](CHANGELOG.txt)
+[PLEASE READ CHANGELOG CAREFULLY](CHANGELOG.txt)
 
 This extension is licensed under the Arma Public Licence - Author: ole1986
 
