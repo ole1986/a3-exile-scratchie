@@ -26,24 +26,23 @@ Before you can start it is necessary to **unpack** the &lt;MissionFile&gt; and t
 Placeholder            | File
 ---------------------- | -------------
 &lt;MissionFile&gt;    | Exile.&lt;Mapname&gt;.pbo (E.g. Exile.Altis.pbo )
-&lt;ExileServer&gt;    | exile_server.pbo
-&lt;ExileServerMod&gt; | @ExileServer Exile server mod directory located in game directory.
+&lt;ExileServerMod&gt; | @ExileServer Exile server mod folder located in game directory.
 
 ### Database setup
 
-+ Import the mysql file *mysql\lottery.sql* into your exile database.
-+ Copy and repalce the *mysql\exile.ini* with the file located in &lt;ExileServerMod&gt;\extDB\sql_custom_v2\exile.ini
++ Import the mysql file `mysql\lottery.sql` into your exile database (through mysql or phpmyadmin for example).
++ Copy and repalce the `mysql\exile.ini` with the file located in `<ExileServerMod>\extDB\sql_custom_v2\exile.ini`
 
 ### Exile Mission modifications
 
-+ Copy the *MissionFile\overrides* and *MissionFile\addons* folder into your &lt;MissionFile&gt; directory
-+ Modify the &lt;MissionFile&gt;\config.cpp and add the below line inside `class CfgExileCustomCode`
++ Copy the folders `MissionFile\overrides` and `MissionFile\addons` into your `<MissionFile>` directory
++ Modify the `<MissionFile>\config.cpp` and add the below line inside `class CfgExileCustomCode`
 
 ```
 ExileClient_gui_xm8_slide_apps_onOpen = "overrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
 ```
 
-+ Modify the &lt;MissionFile&gt;\description.ext and add the below line inside  `class CfgRemoteExec -> class Functions`
++ Modify the `<MissionFile>\description.ext` and add the below line inside  `class CfgRemoteExec -> class Functions`
 
 ```
 class ExileServer_lottery_network_request { allowedTargets=2; };
@@ -53,10 +52,9 @@ class ExileServer_lottery_network_request { allowedTargets=2; };
 
 **CHANGED IN VERSION >= 0.2**
 
-+ Copy the ExileServerMod\scratchie_server.pbo into your <ExileServerMod>\addons directory
++ Copy the `ExileServerMod\scratchie_server.pbo` into your `<ExileServerMod>\addons` directory
 
 *PLEASE MAKE SURE YOU HAVE REMOVED ALL PREVIOUS FILES FROM THE exile_server.pbo*
-
 
 ### Buy / Get Prize code line
 
