@@ -1,7 +1,10 @@
 ## Scratchies (*lottery like* minigame for Exile Mod) v0.2
 
-![Buy a scratch, get the prize](buyget.jpg "Buy a scratch, get the prize")
-![Use the Scratchie](usexm8.jpg "Use the scratchie in XM8")
+<img src="images/buyget.jpg" width="200" title="Buy a scratch, get the prize">
+<img src="images/usexm8.jpg" width="200" title="Use the scratchie in XM8">
+<img src="images/prize-vehicle.jpg" width="200" title="Prize Vehicle">
+<img src="images/prize-poptabs.jpg" width="200" title="Prize Poptabs">
+<img src="images/prize-weapon.jpg" width="200" title="Prize Weapons">
 
 Videos: [PART #1](https://www.youtube.com/watch?v=zVPXYhhYrbU) [PART #2](https://www.youtube.com/watch?v=2MC45ycnOkc) - thanks to Rythron
 
