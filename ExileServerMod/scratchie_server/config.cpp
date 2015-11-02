@@ -95,7 +95,7 @@ class CfgSettings
             "LMG_Zafir_F",
             "launch_NLAW_F",
             "LMG_Mk200_MRCO_F",
-            "srifle_GM6_LRPS_F",
+            "srifle_GM6_LRPS_F"
         };
     };
 };
