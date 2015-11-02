@@ -1,3 +1,6 @@
+v0.3a
+- fixed extra "," in config.cpp
+
 v0.3
 - support for poptabs and weapon prizes
 - additional configuration settings
