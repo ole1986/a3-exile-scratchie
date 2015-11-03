@@ -1,19 +1,18 @@
 /**
  * Scratchie - Lottery like minigame for Exile Mod
  * @author ole1986 - https://github.com/ole1986/a3-exile-scratchie
- * @version 0.3
+ * @version 0.4
  */
 
 private["_playerList", "_number", "_prizes", "_curPrize", "_source","_winners", "_count", "_currentPlayer", "_rand"];
 _winners = [];
 _playerList = nil;
-_number = "111";
+_number = "";
 _prizes = [];
-_rand = getNumber(configFile >> "CfgSettings" >> "ScratchieSettings" >> "ChanceToWin");
 
 try 
 {
-    _number = format ["%1%2%3", round(random _rand) + 1, round(random _rand) + 1, round(random _rand) + 1];
+    _number = call ExileServer_lottery_generate;
 
     // receive a list of all players who are participating (only those where its lucky number is not empty)
     _playerList = "getLotteryPlayers" call ExileServer_system_database_query_selectFull;

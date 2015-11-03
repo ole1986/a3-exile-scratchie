@@ -1,7 +1,7 @@
 /**
  * Scratchie - Lottery like minigame for Exile Mod
  * @author ole1986 - https://github.com/ole1986/a3-exile-scratchie
- * @version 0.3a
+ * @version 0.4
  */
  
 class CfgPatches {
@@ -50,11 +50,11 @@ class CfgSettings
         Price = 200;
         
         /**
-         * @var integer Chance a player can win the prize - MIN: 0 = always winner MAX: 9 = VERY VERY LUCKY
-         *              CHECK OUT http://www.unknown-sanctuary.tk/scratchie.php TO ROUGHLY SEE HOW IT EFFECTS ALL PARTICIPANTS
-         * @version 0.2
+         * @var integer 1 = VERY RARE CHANCE, 50 = NEARLY 50:50 CHANCE 100 = PERFECTLY FOR TESTING (default: 3)
+         *              Check out http://www.unknown-sanctuary.tk/scratchie.php to roughly see results
+         * @version 0.4
          */ 
-        ChanceToWin = 2;
+        ChanceToWin = 3;
         
         /**
          * @var array list of vehicle prizes

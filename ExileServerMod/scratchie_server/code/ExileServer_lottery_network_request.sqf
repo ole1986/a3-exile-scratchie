@@ -1,13 +1,12 @@
 /**
  * Scratchie - Lottery like minigame for Exile Mod
  * @author ole1986 - https://github.com/ole1986/a3-exile-scratchie
- * @version 0.3
+ * @version 0.4
  */
  
 private["_payload", "_request", "_sessionId", "_number", "_player", "_result", "_hasBet", "_prize", "_scratchie","_scratchieCost", "_playerMoney", "_vehicleObject", "_safepos", "_clientId", "_rand"];
 _payload = _this;
 _scratchieCost = getNumber(configFile >> "CfgSettings" >> "ScratchieSettings" >> "Price");
-_rand = getNumber(configFile >> "CfgSettings" >> "ScratchieSettings" >> "ChanceToWin");
 _scratchie = 0;
 _result = true;
 try 
@@ -17,10 +16,7 @@ try
     _player = _payload select 2; // player
     _number = _payload select 3; // lottery number
     
-    if (_number == "") then 
-    {
-        _number = format ["%1%2%3", round(random _rand) + 1, round(random _rand) + 1, round(random _rand) + 1];
-    };
+    _number = call ExileServer_lottery_generate;
     
     //format ["DEBUG: ExileServer_lottery_network_request called - Request: %1 SessionId: %2 Number: %3", _request,_sessionId, _number] call ExileServer_util_log;
     
@@ -82,12 +78,16 @@ try
                     {
                         // use _rand for the crate lifetime setting
                         _rand = getNumber(configFile >> "CfgSettings" >> "ScratchieSettings" >> "CrateLifetime");
+                        // find a safe position
+                        _safepos = [position _player, 5, 80, 3, 0, 20, 0] call BIS_fnc_findSafePos;
                         
-                        _vehicleObject = createVehicle ["Land_MetalCase_01_small_F", position _player, [], 0, "CAN_COLLIDE"]; 
+                        _vehicleObject = createVehicle ["Land_MetalCase_01_small_F", _safepos, [], 0, "CAN_COLLIDE"]; 
                         _vehicleObject addWeaponCargoGlobal [_prize select 0, 1];
                         
                         [_vehicleObject, _prize select 0] call ExileServer_lottery_crate_xtras;
                         
+                        // teleport player to the crate
+                        _player setPosATL [(_safepos select 0) - 1, _safepos select 1, 0];
                         // do a spawn and sleep X minutes until crate will be deleted
                         [_vehicleObject, _rand] spawn {  sleep (_this select 1); deleteVehicle (_this select 0);  };
                         // inform the player

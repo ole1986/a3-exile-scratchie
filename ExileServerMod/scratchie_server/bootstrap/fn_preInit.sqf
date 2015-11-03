@@ -13,7 +13,7 @@ private ['_code', '_function', '_file'];
     _function = _x select 0;
     _file = _x select 1;
 	
-    _code = compileFinal (preprocessFileLineNumbers _file);                    
+    _code = compileFinal (preprocessFileLineNumbers _file);
 
     missionNamespace setVariable [_function, _code];
 }
@@ -21,7 +21,8 @@ forEach
 [
 	['ExileServer_lottery_network_request', 'scratchie_server\code\ExileServer_lottery_network_request.sqf'],
 	['ExileServer_lottery_network_winner', 'scratchie_server\code\ExileServer_lottery_network_winner.sqf'],
-    ['ExileServer_lottery_crate_xtras', 'scratchie_server\code\ExileServer_lottery_crate_xtras.sqf']
+    ['ExileServer_lottery_crate_xtras', 'scratchie_server\code\ExileServer_lottery_crate_xtras.sqf'],
+    ['ExileServer_lottery_generate', 'scratchie_server\code\ExileServer_lottery_generate.sqf']
 ];
 
 diag_log "[SCRATCHIE] Loading Scratchie addon...";
