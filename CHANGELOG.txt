@@ -1,3 +1,7 @@
+v0.4
+- improved the number generation using its own ExileServer_lottery_generate.sqf
+- spawn the crates randomly inside trader zone when player has won
+
 v0.3a
 - fixed extra "," in config.cpp
 
