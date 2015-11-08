@@ -28,4 +28,4 @@ switch (_item) do
    
     default { };
 };
-true
+true;
