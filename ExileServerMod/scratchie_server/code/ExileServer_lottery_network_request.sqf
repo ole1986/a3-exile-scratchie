@@ -1,7 +1,7 @@
 /**
  * Scratchie - Lottery like minigame for Exile Mod
  * @author ole1986 - https://github.com/ole1986/a3-exile-scratchie
- * @version 0.4
+ * @version 0.5
  */
  
 private["_payload", "_request", "_sessionId", "_number", "_player", "_result", "_hasBet", "_prize", "_scratchie","_scratchieCost", "_playerMoney", "_vehicleObject", "_safepos", "_clientId", "_rand"];

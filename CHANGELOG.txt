@@ -1,3 +1,7 @@
+v0.5
+- dynamically add correct magazines into crate
+  So, no need to change ExileServer_lottery_crate_xtras when adding more weapons
+
 v0.4
 - improved the number generation using its own ExileServer_lottery_generate.sqf
 - spawn the crates randomly inside trader zone when player has won
