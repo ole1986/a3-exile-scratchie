@@ -22,7 +22,7 @@ This extension is licensed under the Arma Public Licence - Author: ole1986
 
 ### Prerequisite
 
-Before you can start it is necessary to **unpack** the &lt;MissionFile&gt; and the &lt;ExileServer&gt; using your favorite pbo manager
+Before you can start it is necessary to **unpack** the &lt;MissionFile&gt; using your favorite pbo manager
 
 Placeholder            | File
 ---------------------- | -------------
