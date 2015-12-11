@@ -1,3 +1,8 @@
+v0.6
+- improved the vehicle spawn (pbo update required)
+- keep the "old" exile.ini (v0.9.35) in this repository
+- updated the exile.ini from ExileMod version 0.9.4 "Lime"
+
 v0.5
 - dynamically add correct magazines into crate
   So, no need to change ExileServer_lottery_crate_xtras when adding more weapons
