@@ -1,7 +1,7 @@
 /**
  * Scratchie - Lottery like minigame for Exile Mod
  * @author ole1986 - https://github.com/ole1986/a3-exile-scratchie
- * @version 0.5
+ * @version 0.6
  */
  
 private["_payload", "_request", "_sessionId", "_number", "_player", "_result", "_hasBet", "_prize", "_scratchie","_scratchieCost", "_playerMoney", "_vehicleObject", "_safepos", "_clientId", "_rand"];
@@ -44,15 +44,16 @@ try
                 {
                     case "VehiclePrize":
                     {
-                        _safepos = [position _player, 5, 150, 3, 0, 20, 0] call BIS_fnc_findSafePos;
+                        //_safepos = [position _player, 5, 150, 3, 0, 20, 0] call BIS_fnc_findSafePos;
+                        _safepos = (position _player) findEmptyPosition [10, 150, _prize select 0];
+                        if (_safepos isEqualTo []) then 
+                        {
+                            throw "No empty position found for VehiclePrize";
+                        };
+                        
                         _number = format["%1%2%3%4", round(random 9), round(random 9), round(random 9), round(random 9)];
                         
-                        _vehicleObject = [_prize select 0, [0,0,1000], (random 360), true, _number] call ExileServer_object_vehicle_createPersistentVehicle;
-                        _vehicleObject allowDamage false;
-                        _vehicleObject removeAllEventHandlers "HandleDamage";
-                        _vehicleObject addEventHandler["HandleDamage",{false}];
-                        _safepos set [2,0.1];
-                        _vehicleObject setPosATL _safepos;
+                        _vehicleObject = [_prize select 0, _safepos, (random 360), true, _number] call ExileServer_object_vehicle_createPersistentVehicle;
                         _vehicleObject setVariable ["ExileOwnerUID", (getPlayerUID _player)];
                         _vehicleObject setVariable ["ExileIsLocked",0];
                         _vehicleObject lock 0;
@@ -61,8 +62,6 @@ try
                         
                         _playerMoney = _player getVariable ["ExileMoney", 0];
                         [_sessionId, "purchaseVehicleResponse", [0, netId _vehicleObject,  str _playerMoney]] call ExileServer_system_network_send_to;
-                        _vehicleObject allowDamage true;
-                        _vehicleObject removeAllEventHandlers "HandleDamage";
                         
                         [_player, "dynamicTextRequest", [format ["UNLOCK PIN: %1<br/><br/>DO NOT FORGET", _number], 0, 2, "#ffffff"]] call ExileServer_system_network_send_to;
                     };
