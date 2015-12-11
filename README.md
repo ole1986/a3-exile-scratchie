@@ -1,4 +1,4 @@
-## Scratchies (*lottery like* minigame for Exile Mod) v0.5
+## Scratchies (*lottery like* minigame for Exile Mod) v0.6
 
 <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize">
 <img src="images/usexm8.jpg" width="250" title="Use the scratchie in XM8">
