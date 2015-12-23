@@ -1,10 +1,9 @@
 /**
  * Scratchie - Lottery like minigame for Exile Mod
  * @author ole1986 - https://github.com/ole1986/a3-exile-scratchie
- * @version 0.5
  */
 
-private["_playerList", "_number", "_prizes", "_curPrize", "_source","_winners", "_count", "_currentPlayer", "_rand"];
+private["_playerList", "_number", "_prizes", "_curPrize", "_source","_winners", "_count", "_currentPlayer"];
 _winners = [];
 _playerList = nil;
 _number = "";
@@ -45,18 +44,13 @@ try
     if (count _winners > 0) then 
     {
         // random chance to win either vehicle, poptabs or item (like guns)
-        _prizes = getArray(configFile >> "CfgSettings" >> "ScratchieSettings" >> "VehiclePrize") + getArray(configFile >> "CfgSettings" >> "ScratchieSettings" >> "PoptabPrize") + getArray(configFile >> "CfgSettings" >> "ScratchieSettings" >> "WeaponPrize") + getArray(configFile >> "CfgSettings" >> "ScratchieSettings" >> "CustomPrize");
-        _count = count _prizes;
-        _rand = round(random _count) - 1;
-        _curPrize = _prizes select _rand;
+        _prizes = getArray(configFile >> "CfgSettings" >> "ScratchieSettings" >> "PrizeType");
+        // random prize type
+        _source = _prizes call BIS_fnc_selectRandom;
         
-        _count = count getArray(configFile >> "CfgSettings" >> "ScratchieSettings" >> "VehiclePrize");
-        _source = "VehiclePrize";
-        if (_rand >= _count) then { _source = "PoptabPrize"; };
-        _count = _count + count getArray(configFile >> "CfgSettings" >> "ScratchieSettings" >> "PoptabPrize");
-        if (_rand >= _count) then { _source = "WeaponPrize"; };
-        _count = _count + count getArray(configFile >> "CfgSettings" >> "ScratchieSettings" >> "WeaponPrize");
-        if (_rand >= _count) then { _source = "CustomPrize"; };
+        _prizes = getArray(configFile >> "CfgSettings" >> "ScratchieSettings" >> _source);
+        // the prize itself (can be either Vehicle, Poptab or Weapon)
+        _curPrize = _prizes call BIS_fnc_selectRandom;
         
         // inform the players about the prize
         {
@@ -64,7 +58,11 @@ try
             // Save prize into database
             format["saveLotteryWinner:%1:%2:%3", getPlayerUID _x, _curPrize, _source] call ExileServer_system_database_query_insertSingle;
             
-            // show winner message
+            // broadcast the winner to everyone
+            if(getNumber(configFile >> "CfgSettings" >> "ScratchieSettings" >> "AnnounceWinner") > 0) then { 
+                ["notificationRequest", ["Success", [format["Scratchie: Player %1 has won %2", name _x, _source]]]] call ExileServer_system_network_send_broadcast;
+            };
+            // tell it to the winner explicitly
             [_x, "notificationRequest", ["Success", ["YOU WON A PRIZE"]]] call ExileServer_system_network_send_to;
         } forEach _winners;
     };

@@ -1,3 +1,8 @@
+v0.7
+- new feature: Announce the winner to al players (configurable)
+- new feature: add additional items into crates when player has won a weapon (default 3 items - configurable)
+- improved: configurable PrizeType a player can win (default: "VehiclePrize", "PoptabPrize", "WeaponPrize" - all)
+
 v0.6
 - improved the vehicle spawn (pbo update required)
 - keep the "old" exile.ini (v0.9.35) in this repository
