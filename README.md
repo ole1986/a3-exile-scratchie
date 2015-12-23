@@ -1,4 +1,4 @@
-## Scratchies (*lottery like* minigame for Exile Mod) v0.6
+## Scratchies (*lottery like* minigame for Exile Mod) v0.7
 
 <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize">
 <img src="images/usexm8.jpg" width="250" title="Use the scratchie in XM8">
@@ -18,7 +18,7 @@ This extension is licensed under the Arma Public Licence - Author: ole1986
 
 + PBO Manager (I use cpbo from http://www.kegetys.fi/category/gaming/armamods/)
 + Notepad++ or any other Text Editor (https://notepad-plus-plus.org/)
-+ Exile Mod version 0.9.35
++ Exile Mod version 0.9.4
 
 ### Prerequisite
 
@@ -50,8 +50,6 @@ class ExileServer_lottery_network_request { allowedTargets=2; };
 ```
 
 ### Exile Server modifications
-
-**CHANGED IN VERSION >= 0.2**
 
 + Copy the `ExileServerMod\scratchie_server.pbo` into your `<ExileServerMod>\addons` directory
 
