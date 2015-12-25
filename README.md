@@ -18,7 +18,7 @@ This extension is licensed under the Arma Public Licence - Author: ole1986
 
 + PBO Manager (I use cpbo from http://www.kegetys.fi/category/gaming/armamods/)
 + Notepad++ or any other Text Editor (https://notepad-plus-plus.org/)
-+ Exile Mod version 0.9.4
++ Exile Mod version 0.9.41
 
 ### Prerequisite
 
