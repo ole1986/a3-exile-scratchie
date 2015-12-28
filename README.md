@@ -89,7 +89,11 @@ _officeTrader addAction ["<t color='#c72651'>Get Prize!</t>", { ["get",ExileClie
  
 + add the below to the end of line `7 remoteexec` (line number 19?!) in your scripts.txt
 
- `!="remoteExecCall [\"ExileServer_lottery_network_request\","`
+ `!="remoteExecCall ['ExileServer_lottery_network_request',"`
+ 
++ add the below to the end of line `7 ctrlCreate`
+ 
+ `!="ctrlCreate [\"RscExileXM8ButtonMenu\", 9898,"`
 
 + add the below to the end of line `7 ""` in your remoteexec.txt
 
