@@ -83,18 +83,18 @@ _officeTrader addAction ["<t color='#c72651'>Get Prize!</t>", { ["get",ExileClie
 
 ### Battleye
 
-+ add the below to the end of line `7 addAction` in your scripts.txt
++ add the below to the end of line `7 addAction` in your scripts.txt (important for office trade action menu)
 
  `!="officeTrader addAction"`
  
-+ add the below to the end of line `7 remoteexec` (line number 12?!) in your scripts.txt
++ add the below to the end of line `7 remoteexec` in your scripts.txt (important for buy/use and get prize)
 
  `!="remoteExecCall [\"ExileServer_lottery_network_request\"," !="remoteExecCall ['ExileServer_lottery_network_request',"`
  
-+ add the below to the end of line `7 ctrlCreate`
++ add the below to the end of line `7 ctrlCreate` (important for xm8 implementation)
  
  `!="ctrlCreate [\"RscExileXM8ButtonMenu\", 9898,"`
 
-+ add the below to the end of line `7 ""` in your remoteexec.txt
++ add the below to the end of line `7 ""` in your remoteexec.txt (important for buy/use and get prize)
 
  `!"ExileServer_lottery_network_request"`
