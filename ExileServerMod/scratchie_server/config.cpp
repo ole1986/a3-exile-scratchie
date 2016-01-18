@@ -55,7 +55,7 @@ class CfgSettings
          * @var integer 1 = VERY RARE CHANCE, 50 = NEARLY 50:50 CHANCE 100 = PERFECTLY FOR TESTING (default: 3)
          *              Check out http://www.unknown-sanctuary.tk/scratchie.php to roughly see results
          */ 
-        ChanceToWin = 3;
+        ChanceToWin = 2;
         
         /**
          * @var int ItemPrize lifetime - How long is the crate available for item prizes (default: 180 sec = 3 minutes)
@@ -84,10 +84,6 @@ class CfgSettings
             "Exile_Car_Ifrit",
             "Exile_Car_Offroad_Repair_Guerilla12", 
             "Exile_Car_Offroad_Armed_Guerilla08",
-            "I_Heli_light_03_F",
-            "O_Heli_Attack_02_F",
-            "B_Heli_Attack_01_F",
-            "B_Heli_Transport_01_camo_F",
             "Exile_Chopper_Hellcat_FIA",
             "Exile_Chopper_Orca_CSAT",
             "Exile_Chopper_Huron_Black",
