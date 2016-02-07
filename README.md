@@ -1,41 +1,41 @@
 ## Scratchies (*lottery like* minigame for Exile Mod) v0.7
+<sub>This extension is licensed under the Arma Public Licence - Author: ole1986</sub>
 
-<img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize">
-<img src="images/usexm8.jpg" width="250" title="Use the scratchie in XM8">
-<br/>
-<img src="images/prize-vehicle.jpg" width="250" title="Prize Vehicle">
-<img src="images/prize-poptabs.jpg" width="250" title="Prize Poptabs">
-<img src="images/prize-weapon.jpg" width="250" title="Prize Weapons">
+<p align="center">
+    <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize">
+    <img src="images/usexm8.jpg" width="250" title="Use the scratchie in XM8">
+</p>
+<p align="center">
+    <img src="images/prize-vehicle.jpg" width="250" title="Prize Vehicle">
+    <img src="images/prize-poptabs.jpg" width="250" title="Prize Poptabs">
+    <img src="images/prize-weapon.jpg" width="250" title="Prize Weapons">
+</p>
 
 Videos: [PART #1](https://www.youtube.com/watch?v=zVPXYhhYrbU) [PART #2](https://www.youtube.com/watch?v=2MC45ycnOkc) - thanks to Rythron
 
-[PLEASE READ CHANGELOG CAREFULLY](CHANGELOG.txt)
-
-This extension is licensed under the Arma Public Licence - Author: ole1986
-
 ## Installation
+
+This README uses some placeholders
+
+Placeholder            | Description
+---------------------- | -------------
+&lt;MissionFile&gt;    | Exile.&lt;Mapname&gt;.pbo (E.g. Exile.Altis.pbo )
+&lt;ExileServerMod&gt; | @ExileServer Exile server mod folder located in game directory.
+
 ### Required Tools
 
 + PBO Manager (I use cpbo from http://www.kegetys.fi/category/gaming/armamods/)
 + Notepad++ or any other Text Editor (https://notepad-plus-plus.org/)
 + Exile Mod version 0.9.41
 
-### Prerequisite
-
-Before you can start it is necessary to **unpack** the &lt;MissionFile&gt; using your favorite pbo manager
-
-Placeholder            | File
----------------------- | -------------
-&lt;MissionFile&gt;    | Exile.&lt;Mapname&gt;.pbo (E.g. Exile.Altis.pbo )
-&lt;ExileServerMod&gt; | @ExileServer Exile server mod folder located in game directory.
-
 ### Database setup
 
 + Import the mysql file `mysql\lottery.sql` into your exile database (through mysql or phpmyadmin for example).
 + Copy and repalce the `mysql\exile.ini` with the file located in `<ExileServerMod>\extDB\sql_custom_v2\exile.ini`
 
-### Exile Mission modifications
+### Mission file
 
++ **Unpack** the `<MissionFile>`
 + Copy the folders `MissionFile\overrides` and `MissionFile\addons` into your `<MissionFile>` directory
 + Modify the `<MissionFile>\config.cpp` and add the below line inside `class CfgExileCustomCode`
 
@@ -49,7 +49,7 @@ ExileClient_gui_xm8_slide_apps_onOpen = "overrides\ExileClient_gui_xm8_slide_app
 class ExileServer_lottery_network_request { allowedTargets=2; };
 ```
 
-### Exile Server modifications
+### Exile Server
 
 + Copy the `ExileServerMod\scratchie_server.pbo` into your `<ExileServerMod>\addons` directory
 
