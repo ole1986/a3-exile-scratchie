@@ -33,6 +33,8 @@ _respect ctrlSetStructuredText parseText (format ["<t color='#00b2cd' font='Orbi
 // clear server info button text
 _serverInfo = _display displayCtrl 1107;
 _serverInfo ctrlSetText " ";
+_serverInfo ctrlSetFade 1;
+_serverInfo ctrlCommit 0;
 
 updateScratchieText = {
 	_txt = "<t size='0.9'><img image='addons\lottery\scratchie.paa' size='3.5' shadow='true' /><br/>%1 %2</t>";
