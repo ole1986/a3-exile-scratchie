@@ -52,7 +52,7 @@ ExileClient_gui_xm8_slide_apps_onOpen = "overrides\ExileClient_gui_xm8_slide_app
  <p align="center"><img src="images/scratchie-xm8apps-inside.PNG" width="250" title="Scratchie buttons in xm8Apps"></p>
 
 + Install xm8Apps as described in the <a href="https://github.com/TheeMrshix/XM8-Apps/blob/master/README.md">README.md from TheeMrshix</a>
-+ Copy and replace the folder located in `MissionFile\xm8Apps` with your `xm8Apps` folder in your mission file
++ Copy and **replace** the file `MissionFile\xm8Apps\XM8Apps_Init.sqf` with your `<MissionFile>\xm8Apps\XM8Apps_Init.sqf`
 
 **Option 1/2:**
 
