@@ -1,6 +1,8 @@
 ## Scratchies (*lottery like* minigame for Exile Mod) v0.7
 <sub>This extension is licensed under the Arma Public Licence - Author: ole1986</sub>
 
+**<a href="https://github.com/TheeMrshix/XM8-Apps">xm8Apps</a> compatible - see section <a href="#missionfile">MissionFile</a>**
+
 <p align="center">
     <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize">
     <img src="images/usexm8.jpg" width="250" title="Use the scratchie in XM8">
@@ -33,15 +35,26 @@ Placeholder            | Description
 + Import the mysql file `mysql\lottery.sql` into your exile database (through mysql or phpmyadmin for example).
 + Copy and repalce the `mysql\exile.ini` with the file located in `<ExileServerMod>\extDB\sql_custom_v2\exile.ini`
 
-### Mission file
+### MissionFile
 
 + **Unpack** the `<MissionFile>`
+
+**Option 1: Standalone**
+
 + Copy the folders `MissionFile\overrides` and `MissionFile\addons` into your `<MissionFile>` directory
 + Modify the `<MissionFile>\config.cpp` and add the below line inside `class CfgExileCustomCode`
 
 ```
 ExileClient_gui_xm8_slide_apps_onOpen = "overrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
 ```
+
+**Option 2: xm8Apps**
+ <p align="center"><img src="images/scratchie-xm8apps-inside.PNG" width="250" title="Scratchie buttons in xm8Apps"></p>
+
++ Install xm8Apps as described in the <a href="https://github.com/TheeMrshix/XM8-Apps/blob/master/README.md">README.md from TheeMrshix</a>
++ Copy and replace the folder located in `MissionFile\xm8Apps` with your `xm8Apps` folder in your mission file
+
+**Option 1/2:**
 
 + Modify the `<MissionFile>\description.ext` and add the below line inside  `class CfgRemoteExec -> class Functions`
 
