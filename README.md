@@ -68,7 +68,7 @@ class ExileServer_lottery_network_request { allowedTargets=2; };
 
 *PLEASE MAKE SURE YOU HAVE REMOVED ALL PREVIOUS FILES FROM THE exile_server.pbo*
 
-### Buy / Get Prize code line
+### Buy Scratchies / Get Prize - required for Option 1: Standalone
 
 *The below code can be used to buy a scratchie from any object you decide*
 
