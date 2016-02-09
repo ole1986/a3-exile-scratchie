@@ -66,8 +66,6 @@ class ExileServer_lottery_network_request { allowedTargets=2; };
 
 + Copy the `ExileServerMod\scratchie_server.pbo` into your `<ExileServerMod>\addons` directory
 
-*PLEASE MAKE SURE YOU HAVE REMOVED ALL PREVIOUS FILES FROM THE exile_server.pbo*
-
 ### Buy Scratchies / Get Prize - required for Option 1: Standalone
 
 *The below code can be used to buy a scratchie from any object you decide*
