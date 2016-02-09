@@ -1,7 +1,7 @@
 ## Scratchies (*lottery like* minigame for Exile Mod) v0.7
 <sub>This extension is licensed under the Arma Public Licence - Author: ole1986</sub>
 
-**<a href="https://github.com/TheeMrshix/XM8-Apps">xm8Apps</a> compatible - see section <a href="#missionfile">MissionFile</a>**
+**<p align="center"><a href="https://github.com/TheeMrshix/XM8-Apps">xm8Apps</a> compatible - see section <a href="#missionfile">MissionFile</a></p>**
 
 <p align="center">
     <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize">
