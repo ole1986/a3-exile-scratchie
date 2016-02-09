@@ -31,9 +31,11 @@ app1_action = {
 	['',ExileClientSessionId, player, ''] remoteExecCall ['ExileServer_lottery_network_request', 2];
 	
 	[] spawn {
-		sleep 5;
-		// this is supposed to work as _app1Text is not defined as private
-		_app1Text = format["%1 Scratchies", missionNamespace getVariable ["scratchieCount", 0]]
+		disableSerialization;
+		sleep 3;
+		_display = uiNameSpace getVariable ["RscExileXM8", displayNull];
+		_ctrl = (_display displayCtrl 991);
+		_ctrl ctrlSetStructuredText (parseText (format ["%1 Scratchies",missionNamespace getVariable ["scratchieCount", 0]]));
 	};
 };
 
@@ -120,7 +122,7 @@ app12_action = {
       _ctrl ctrlCommit 0.25;
       ctrlEnable [_x, true];
   } forEach _AppsArray;
-  uiSleep 0.25;
+uiSleep 0.25;
   _ctrlArray = [4007,4060,4040,4120,4080,4070,4090,4100,4110,4130,4030];
   {
       _ctrl = (_display displayCtrl _x);
