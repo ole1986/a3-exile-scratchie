@@ -1,3 +1,6 @@
+v0.9
+- slightly improved the announcement of the winner
+
 v0.8
 - implementation of xm8Apps updated
 

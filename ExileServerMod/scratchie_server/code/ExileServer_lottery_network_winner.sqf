@@ -3,7 +3,7 @@
  * @author ole1986 - https://github.com/ole1986/a3-exile-scratchie
  */
 
-private["_playerList", "_number", "_prizes", "_curPrize", "_source","_winners", "_count", "_currentPlayer"];
+private["_playerList", "_number", "_prizes", "_curPrize", "_source","_text","_winners", "_count", "_currentPlayer"];
 _winners = [];
 _playerList = nil;
 _number = "";
@@ -47,11 +47,26 @@ try
         _prizes = getArray(configFile >> "CfgSettings" >> "ScratchieSettings" >> "PrizeType");
         // random prize type
         _source = _prizes call BIS_fnc_selectRandom;
-        
+                
         _prizes = getArray(configFile >> "CfgSettings" >> "ScratchieSettings" >> _source);
         // the prize itself (can be either Vehicle, Poptab or Weapon)
         _curPrize = _prizes call BIS_fnc_selectRandom;
         
+        switch (_source) do {
+            case "VehiclePrize": { 
+                _text = "%1 won " + getText(configFile >> "CfgVehicles" >> _curPrize >> "displayName"); 
+            };
+            case "PoptabPrize": {
+                _text = "%1 won " + (str _curPrize) + " poptabs";
+            };
+            case "WeaponPrize": {
+                _text = "%1 won " + getText(configFile >> "CfgWeapons" >> _curPrize >> "displayName");
+            };
+            default { _text = "%1 won a prize"; };
+        };
+        
+        _text = _text + "<br /><t shadow='0' size='1.0'>in the addictive game called Scratchies</t>";
+                
         // inform the players about the prize
         {
             format["SCRATCHIE: Winner is %1 - Price: %2 from %3", name vehicle _x, _curPrize, _source]  call ExileServer_util_log;
@@ -60,10 +75,10 @@ try
             
             // broadcast the winner to everyone
             if(getNumber(configFile >> "CfgSettings" >> "ScratchieSettings" >> "AnnounceWinner") > 0) then { 
-                ["notificationRequest", ["Success", [format["Scratchie: Player %1 has won %2", name _x, _source]]]] call ExileServer_system_network_send_broadcast;
+                ["dynamicTextRequest", [format [_text, name _x], 0, 2, "#ffffff"]] call ExileServer_system_network_send_broadcast;
             };
             // tell it to the winner explicitly
-            [_x, "notificationRequest", ["Success", ["YOU WON A PRIZE"]]] call ExileServer_system_network_send_to;
+            [_x, "dynamicTextRequest", [format [_text, "You have"], 0, 2, "#ffffff"]] call ExileServer_system_network_send_to;
         } forEach _winners;
     };
     
