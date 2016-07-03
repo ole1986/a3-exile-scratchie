@@ -1,5 +1,5 @@
 ## Scratchies (*lottery like* minigame for Exile Mod)
-<sub>Version: 1.0 | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
+<sub>Version: 1.1 | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
 
 **<p align="center"><a href="https://github.com/TheeMrshix/XM8-Apps">xm8Apps</a> compatible - see section <a href="#missionfile">MissionFile</a></p>**
 

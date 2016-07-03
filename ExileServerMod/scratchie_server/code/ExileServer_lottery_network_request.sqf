@@ -70,6 +70,8 @@ try
                         _player setVariable ["ExileMoney", _playerMoney, true];
 
                         format["setPlayerMoney:%1:%2", _playerMoney, _player getVariable ["ExileDatabaseID", 0]] call ExileServer_system_database_query_fireAndForget;
+
+                        [_player, "toastRequest", ["SuccessTitleOnly", [format["Added %1 poptabs", parseNumber(_prize select 0)]]]] call ExileServer_system_network_send_to;
                         [_player, "lockerResponse", []] call ExileServer_system_network_send_to;
                     };
                     case "WeaponPrize":
