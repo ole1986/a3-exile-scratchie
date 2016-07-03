@@ -44,7 +44,7 @@ try
                     case "VehiclePrize":
                     {
                         //_safepos = [position _player, 5, 150, 3, 0, 20, 0] call BIS_fnc_findSafePos;
-                        _safepos = (position _player) findEmptyPosition [10, 150, _prize select 0];
+                        _safepos = (position _player) findEmptyPosition [10, 50, _prize select 0];
                         if (_safepos isEqualTo []) then 
                         {
                             throw "No empty position found for VehiclePrize";
@@ -59,18 +59,18 @@ try
                         _vehicleObject call ExileServer_object_vehicle_database_insert;
                         _vehicleObject call ExileServer_object_vehicle_database_update;
                         
-                        _playerMoney = _player getVariable ["ExileMoney", 0];
-                        [_sessionId, "purchaseVehicleResponse", [0, netId _vehicleObject,  str _playerMoney]] call ExileServer_system_network_send_to;
-                        
+                        _playerMoney = _player getVariable ["ExileMoney", 0, true];
+                        //[_sessionId, "purchaseVehicleResponse", [0, netId _vehicleObject,  str _playerMoney]] call ExileServer_system_network_send_to;
                         [_player, "dynamicTextRequest", [format ["UNLOCK PIN: %1<br/><br/>DO NOT FORGET", _number], 0, 2, "#ffffff"]] call ExileServer_system_network_send_to;
                     };
                     case "PoptabPrize":
                     {
                         _playerMoney = _player getVariable ["ExileMoney", 0];
                         _playerMoney = _playerMoney + parseNumber(_prize select 0);
-                        _player setVariable ["ExileMoney", _playerMoney];
-                        format["setAccountMoney:%1:%2", _playerMoney, (getPlayerUID _player)] call ExileServer_system_database_query_fireAndForget;
-                        [_sessionID, "moneyReceivedRequest", [str _playerMoney, "Scratchie"]] call ExileServer_system_network_send_to;
+                        _player setVariable ["ExileMoney", _playerMoney, true];
+
+                        format["setPlayerMoney:%1:%2", _playerMoney, _player getVariable ["ExileDatabaseID", 0]] call ExileServer_system_database_query_fireAndForget;
+                        [_player, "lockerResponse", []] call ExileServer_system_network_send_to;
                     };
                     case "WeaponPrize":
                     {
@@ -94,36 +94,40 @@ try
                 };
                 
             } else {
-                [_player, "notificationRequest", ["LockKickWarning", ["No prize for you :-("]]] call ExileServer_system_network_send_to;
+                [_player, "toastRequest", ["InfoTitleOnly", ["No prize for you :-("]]] call ExileServer_system_network_send_to;
             };
         };
         case "buy": {
             _playerMoney = _player getVariable ["ExileMoney", 0];
             if (_playerMoney >= _scratchieCost) then {
                 _playerMoney = _playerMoney - _scratchieCost;
-                _player setVariable ["ExileMoney", _playerMoney];
+                _player setVariable ["ExileMoney", _playerMoney, true];
                 
-                format["setAccountMoney:%1:%2", _playerMoney, (getPlayerUID _player)] call ExileServer_system_database_query_fireAndForget;
+                format["setPlayerMoney:%1:%2", _playerMoney, _player getVariable ["ExileDatabaseID", 0]] call ExileServer_system_database_query_fireAndForget;
                 format["playerAddScratchie:%1", getPlayerUID _player] call ExileServer_system_database_query_fireAndForget;
-                [_player, "notificationRequest", ["PartyInviteMessage", ["You just bought a scratchie"]]] call ExileServer_system_network_send_to;
+
+                [_player, "toastRequest", ["SuccessTitleOnly", ["You bought a scratchie"]]] call ExileServer_system_network_send_to;
+                [_player, "lockerResponse", []] call ExileServer_system_network_send_to;
                 _scratchie = _scratchie + 1;
-                [_sessionID, "moneySentRequest", [str _playerMoney, "Scratchie"]] call ExileServer_system_network_send_to;
+            } else {
+                [_player, "toastRequest", ["ErrorTitleOnly", ["Not enough money"]]] call ExileServer_system_network_send_to;
             };
         };
         case "use": {            
             // player is already participating
             if ((_hasBet select 1) != "") then {
                 // notify the player that he/she is already participating
-                [_player, "notificationRequest", ["PartyInviteMessage", ["You already participating"]]] call ExileServer_system_network_send_to;
+                [_player, "toastRequest", ["InfoTitleOnly", ["You already participating"]]] call ExileServer_system_network_send_to;
             } else {
                 if (_scratchie > 0) then
                 {
                     // row exist and number is empty, soo allow player to participate
                     _result = format["playerBetLottery:%1:%2", _number, getPlayerUID _player] call ExileServer_system_database_query_insertSingle;
                     _scratchie = _scratchie - 1;
-                    [_player, "notificationRequest", ["PartyInviteMessage", [format["Your lucky number: %1", _number]]]] call ExileServer_system_network_send_to;
+
+                    [_player, "toastRequest", ["SuccessTitleOnly", [format["Your lucky number: %1", _number]]]] call ExileServer_system_network_send_to;
                 } else {
-                    [_player, "notificationRequest", ["LockKickWarning", ["No more scratchies :("]]] call ExileServer_system_network_send_to;
+                    [_player, "toastRequest", ["InfoTitleOnly", ["No more scratchies :("]]] call ExileServer_system_network_send_to;
                 };
             };
         };

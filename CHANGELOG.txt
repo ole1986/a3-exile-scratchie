@@ -1,3 +1,6 @@
+v1.0
+- fixed issues for ExileMod version 0.9.8
+
 v0.9
 - slightly improved the announcement of the winner
 

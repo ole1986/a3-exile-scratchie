@@ -1,5 +1,5 @@
-## Scratchies (*lottery like* minigame for Exile Mod) v0.9
-<sub>This extension is licensed under the Arma Public Licence - Author: ole1986</sub>
+## Scratchies (*lottery like* minigame for Exile Mod)
+<sub>Version: 1.0 | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
 
 **<p align="center"><a href="https://github.com/TheeMrshix/XM8-Apps">xm8Apps</a> compatible - see section <a href="#missionfile">MissionFile</a></p>**
 
@@ -28,7 +28,7 @@ Placeholder            | Description
 
 + PBO Manager (I use cpbo from http://www.kegetys.fi/category/gaming/armamods/)
 + Notepad++ or any other Text Editor (https://notepad-plus-plus.org/)
-+ Exile Mod version 0.9.41
++ Exile Mod version 0.9.8
 
 ### Database setup
 
@@ -39,22 +39,12 @@ Placeholder            | Description
 
 + **Unpack** the `<MissionFile>`
 
-**Option 1: Standalone**
-
 + Copy the folders `MissionFile\overrides` and `MissionFile\addons` into your `<MissionFile>` directory
 + Modify the `<MissionFile>\config.cpp` and add the below line inside `class CfgExileCustomCode`
 
 ```
 ExileClient_gui_xm8_slide_apps_onOpen = "overrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
 ```
-
-**Option 2: xm8Apps**
- <p align="center"><img src="images/scratchie-xm8apps-inside.PNG" width="250" title="Scratchie buttons in xm8Apps"></p>
-
-+ Install xm8Apps as described in the <a href="https://github.com/TheeMrshix/XM8-Apps/blob/master/README.md">README.md from TheeMrshix</a>
-+ Copy and **replace** the file `MissionFile\xm8Apps\XM8Apps_Init.sqf` with your `<MissionFile>\xm8Apps\XM8Apps_Init.sqf`
-
-**Option 1/2:**
 
 + Modify the `<MissionFile>\description.ext` and add the below line inside  `class CfgRemoteExec -> class Functions`
 
@@ -66,7 +56,7 @@ class ExileServer_lottery_network_request { allowedTargets=2; };
 
 + Copy the `ExileServerMod\scratchie_server.pbo` into your `<ExileServerMod>\addons` directory
 
-### Buy Scratchies / Get Prize - required for Option 1: Standalone
+### Buy Scratchies from Traders
 
 *The below code can be used to buy a scratchie from any object you decide*
 
