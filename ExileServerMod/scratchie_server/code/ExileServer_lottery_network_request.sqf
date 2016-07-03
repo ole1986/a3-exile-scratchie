@@ -59,8 +59,6 @@ try
                         _vehicleObject call ExileServer_object_vehicle_database_insert;
                         _vehicleObject call ExileServer_object_vehicle_database_update;
                         
-                        _playerMoney = _player getVariable ["ExileMoney", 0, true];
-                        //[_sessionId, "purchaseVehicleResponse", [0, netId _vehicleObject,  str _playerMoney]] call ExileServer_system_network_send_to;
                         [_player, "dynamicTextRequest", [format ["UNLOCK PIN: %1<br/><br/>DO NOT FORGET", _number], 0, 2, "#ffffff"]] call ExileServer_system_network_send_to;
                     };
                     case "PoptabPrize":
