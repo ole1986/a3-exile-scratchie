@@ -1,8 +1,6 @@
 ## Scratchies (*lottery like* minigame for Exile Mod)
 <sub>Version: 1.2 | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
 
-**<p align="center"><a href="https://github.com/TheeMrshix/XM8-Apps">xm8Apps</a> compatible - see section <a href="#missionfile">MissionFile</a></p>**
-
 <p align="center">
     <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize">
     <img src="images/usexm8.jpg" width="250" title="Use the scratchie in XM8">
@@ -84,18 +82,18 @@ _officeTrader addAction ["<t color='#c72651'>Get Prize!</t>", { ["get",ExileClie
 
 ### Battleye
 
-+ add the below to the end of line `7 addAction` in your scripts.txt (important for office trade action menu)
+**scripts.txt**
+
++ add the below to the end of line `7 addAction` (important for office trade action menu)
 
  `!="officeTrader addAction"`
  
-+ add the below to the end of line `7 remoteexec` in your scripts.txt (important for buy/use and get prize)
++ add the below to the end of line `7 remoteexec`
 
  `!="remoteExecCall [\"ExileServer_lottery_network_request\"," !="remoteExecCall ['ExileServer_lottery_network_request',"`
  
-+ add the below to the end of line `7 ctrlCreate` (important for xm8 implementation)
- 
- `!="ctrlCreate [\"RscExileXM8ButtonMenu\", 9898,"`
+**remoteexec.txt**
 
-+ add the below to the end of line `7 ""` in your remoteexec.txt (important for buy/use and get prize)
++ add the below to the end of line `7 ""`
 
  `!"ExileServer_lottery_network_request"`
