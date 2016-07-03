@@ -1,0 +1,18 @@
+{
+    "version": "0.1.0",
+    "name": "PBO Task",
+    "command": "cmd",
+    "isShellCommand": true, 
+    "showOutput": "always",
+    "args": ["/C"],
+    "tasks": [
+        {
+            "taskName": "Pack",
+            "suppressTaskName": true,
+            "isBuildCommand": true,
+            "args": [
+                "cpbo -y -p ${workspaceRoot}\\ExileServerMod\\scratchie_server ${workspaceRoot}\\ExileServerMod\\scratchie_server.pbo"
+            ]
+        }
+    ]
+}
