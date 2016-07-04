@@ -35,7 +35,7 @@ try
             if (_currentPlayer select 2 == _number) then {
                 _winners pushBack _x;
             } else {
-                [_x,"notificationRequest",["LockKickWarning",[format["The lucky number: %1<br/>You had %2", _number, _currentPlayer select 2]]]] call ExileServer_system_network_send_to;
+                [_x, "toastRequest", ["InfoTitleAndText", ["Scratchies: No luck this time!", format["The lucky number: %1<br/>You had %2", _number, _currentPlayer select 2]]]] call ExileServer_system_network_send_to;
             };
         };
         
