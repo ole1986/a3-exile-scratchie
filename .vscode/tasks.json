@@ -11,7 +11,7 @@
             "suppressTaskName": true,
             "isBuildCommand": true,
             "args": [
-                "cpbo -y -p ${workspaceRoot}\\ExileServerMod\\scratchie_server ${workspaceRoot}\\ExileServerMod\\scratchie_server.pbo"
+                "cpbo -y -p \"${workspaceRoot}\\ExileServerMod\\scratchie_server\" \"${workspaceRoot}\\ExileServerMod\\scratchie_server.pbo\""
             ]
         }
     ]
