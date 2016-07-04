@@ -1,3 +1,6 @@
+v1.3
+- "No Luck" notification fixed
+
 v1.2
 - another bugfix in ExileServer_lottery_network_request.sqf, reported by user - thanks
 
