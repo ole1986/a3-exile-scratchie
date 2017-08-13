@@ -2,13 +2,16 @@
 <sub>Version: 1.2 | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
 
 <p align="center">
-    <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize">
-    <img src="images/usexm8.jpg" width="250" title="Use the scratchie in XM8">
+    <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize" />
+    <img src="images/usexm8.jpg" width="250" title="Use the scratchie in XM8" />
 </p>
 <p align="center">
-    <img src="images/prize-vehicle.jpg" width="250" title="Prize Vehicle">
-    <img src="images/prize-poptabs.jpg" width="250" title="Prize Poptabs">
-    <img src="images/prize-weapon.jpg" width="250" title="Prize Weapons">
+    <img src="images/prize-vehicle.jpg" width="250" title="Prize Vehicle" />
+    <img src="images/prize-poptabs.jpg" width="250" title="Prize Poptabs" />
+</p>
+<p align="center">
+    <img src="images/prize-weapon.jpg" width="250" title="Prize Weapons" />
+    <img src="images/winner-message.png" width="250" title="Winner Message Offroad" />
 </p>
 
 Videos: [PART #1](https://www.youtube.com/watch?v=zVPXYhhYrbU) [PART #2](https://www.youtube.com/watch?v=2MC45ycnOkc) - thanks to Rythron
