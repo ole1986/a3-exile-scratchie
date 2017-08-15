@@ -1,5 +1,5 @@
 ## Scratchies (*lottery like* minigame for Exile Mod)
-<sub>Version: 1.3 | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
+<sub>Version: 1.4 | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
 
 <p align="center">
     <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize">
@@ -13,46 +13,63 @@
 
 Videos: [PART #1](https://www.youtube.com/watch?v=zVPXYhhYrbU) [PART #2](https://www.youtube.com/watch?v=2MC45ycnOkc) - thanks to Rythron
 
-## Installation
+## Requirements
 
-This README uses some placeholders
++ Arma 3 Tools (installed through Steam - https://community.bistudio.com/wiki/Arma_3_Tools_Installation)
 
-Placeholder            | Description
----------------------- | -------------
-&lt;MissionFile&gt;    | Exile.&lt;Mapname&gt;.pbo (E.g. Exile.Altis.pbo )
-&lt;ExileServerMod&gt; | @ExileServer Exile server mod folder located in game directory.
+## Build
 
-### Required Tools
+You can either use Visual Studio code or the powershell to build and patch all necessary files
 
-+ PBO Manager (I use cpbo from http://www.kegetys.fi/category/gaming/armamods/)
-+ Notepad++ or any other Text Editor (https://notepad-plus-plus.org/)
-+ Exile Mod version 0.9.8
+Use the below command to build server pbo
 
-### Database setup
+```
+PS> .\setup.ps1 -Build
+```
 
-+ Import the mysql file `mysql\lottery.sql` into your exile database (through mysql or phpmyadmin for example).
+Use the below command to patch your mission file (a dialog will be prompted to select the mission pbo)
+
+```
+PS> .\setup.ps1 -PatchMission
+```
+
+## Install
+
+After you have followed the steps from the **Build** chapter, the below files are being generated.
+Copy these files to your server into the **correct** destination directory
+
+Location                                 | Destination Folder
+---------------------------------------- | ----------------------
+@MissionFile\<Your.Mission.pbo>          | mpmission
+@ExileServer\addons\scratchie_server.pbo | @ExileServer\addons\
+
+## Database setup
+
++ Import the mysql file `mysql\lottery.sql` into your exile database (either through mysql or phpmyadmin).
 + Copy and repalce the `mysql\exile.ini` with the file located in `<ExileServerMod>\extDB\sql_custom_v2\exile.ini`
 
-### MissionFile
+## Battleye
 
-+ **Unpack** the `<MissionFile>`
+When you use Battleye, please amend the below BE files to allow remote calls
 
-+ Copy the folders `MissionFile\overrides` and `MissionFile\addons` into your `<MissionFile>` directory
-+ Modify the `<MissionFile>\config.cpp` and add the below line inside `class CfgExileCustomCode`
+**scripts.txt**
 
-```
-ExileClient_gui_xm8_slide_apps_onOpen = "overrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
-```
++ add the below to the end of line `7 remoteexec`
 
-+ Modify the `<MissionFile>\description.ext` and add the below line inside  `class CfgRemoteExec -> class Functions`
+ `!="remoteExecCall [\"ExileServer_lottery_network_request\"," !="remoteExecCall ['ExileServer_lottery_network_request',"`
+ 
+**remoteexec.txt**
 
-```
-class ExileServer_lottery_network_request { allowedTargets=2; };
-```
++ add the below to the end of line `7 ""`
 
-### Exile Server
+ `!"ExileServer_lottery_network_request"`
 
-+ Copy the `ExileServerMod\scratchie_server.pbo` into your `<ExileServerMod>\addons` directory
+## Finish
+
+After all the below steps are properly done, please RESTART the Arma 3 server and log into the game.
+You should see three additional "apps" when opening XM8
+
+## Advanced Setup
 
 ### Buy Scratchies from Traders
 
@@ -80,20 +97,9 @@ _officeTrader addAction ["<t color='#FFFFFF'>Buy Scratchie(200,-)</t>", { ["buy"
 _officeTrader addAction ["<t color='#c72651'>Get Prize!</t>", { ["get",ExileClientSessionId, player, ""] remoteExecCall ["ExileServer_lottery_network_request", 2]; }];
 ```
 
-### Battleye
+### Developer Hints
 
-**scripts.txt**
+This project was developed using Visual Studio Code and uses git to manage the source code.
+Feel free to Pull Request your changes.
 
-+ add the below to the end of line `7 addAction` (important for office trade action menu)
-
- `!="officeTrader addAction"`
- 
-+ add the below to the end of line `7 remoteexec`
-
- `!="remoteExecCall [\"ExileServer_lottery_network_request\"," !="remoteExecCall ['ExileServer_lottery_network_request',"`
- 
-**remoteexec.txt**
-
-+ add the below to the end of line `7 ""`
-
- `!"ExileServer_lottery_network_request"`
+Thank you
