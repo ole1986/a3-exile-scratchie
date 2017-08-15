@@ -1,5 +1,5 @@
 # Scratchies (*lottery like* minigame for Exile Mod)
-<sub>Version: 1.2.1 | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
+<sub>Version: 1.3 | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
 
 <p align="center">
     <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize" />

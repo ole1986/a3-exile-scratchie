@@ -41,25 +41,24 @@ _respect ctrlSetTooltip format["%1", ExileClientPlayerScore];
 _respect ctrlSetStructuredText parseText (format ["<t color='#00b2cd' font='OrbitronLight' size='1.6' valign='middle' align='center' shadow='0'><br/><br/><br/><t font='OrbitronMedium' size='3.5' color='#ffffff'>%1</t><br/>RESPECT</t>", _respectValue]);
 
 updateScratchieText = {
-	_this ctrlSetText "(counting) Scratchies...";
-	[_this] spawn {
-		sleep 5;
-		_this select 0 ctrlSetText (format ["%1 Scratchies", missionNamespace getVariable ["scratchieCount", 0]]);
-	};
+	disableSerialization;
+	_tmp = (uiNameSpace getVariable ["RscExileXM8", displayNull]);
+	(_tmp displayCtrl 5006) ctrlSetText "(counting) Scratchies...";
+	sleep 3;
+	(_tmp displayCtrl 5006) ctrlSetText (format ["%1 Scratchies", missionNamespace getVariable ["scratchieCount", 0]]);
 };
+
+_newControl = _display displayCtrl 5006;
+_newControl ctrlSetText " ";
+_newControl ctrlSetEventHandler ["ButtonClick", "['use',ExileClientSessionId, player, ''] remoteExecCall ['ExileServer_lottery_network_request', 2]; [] spawn updateScratchieText"]; 
 
 _newControl = _display displayCtrl 5007;
 _newControl ctrlSetText "Buy Scratchie";
-_newControl ctrlSetEventHandler ["ButtonClick", "['buy',ExileClientSessionId, player, ''] remoteExecCall ['ExileServer_lottery_network_request', 2];"];
+_newControl ctrlSetEventHandler ["ButtonClick", "['buy',ExileClientSessionId, player, ''] remoteExecCall ['ExileServer_lottery_network_request', 2]; [] spawn updateScratchieText"];
 
 _newControl = _display displayCtrl 5008;
 _newControl ctrlSetText "Get Prize";
 _newControl ctrlSetEventHandler ["ButtonClick", "['get',ExileClientSessionId, player, ''] remoteExecCall ['ExileServer_lottery_network_request', 2];"];
 
-
-_newControl = _display displayCtrl 5006;
-_newControl ctrlSetText " ";
-_newControl ctrlSetEventHandler ["ButtonClick", "['use',ExileClientSessionId, player, ''] remoteExecCall ['ExileServer_lottery_network_request', 2]; _this select 0 call updateScratchieText"]; 
-
 ['',ExileClientSessionId, player, ''] remoteExecCall ['ExileServer_lottery_network_request', 2];
-_newControl call updateScratchieText;
+[] spawn updateScratchieText;
