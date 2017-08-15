@@ -79,7 +79,7 @@ try
                         // find a safe position
                         _safepos = [position _player, 5, 80, 3, 0, 20, 0] call BIS_fnc_findSafePos;
                         
-                        _vehicleObject = createVehicle ["Land_MetalCase_01_small_F", _safepos, [], 0, "CAN_COLLIDE"]; 
+                        _vehicleObject = createVehicle ["Box_NATO_Wps_F", _safepos, [], 0, "CAN_COLLIDE"]; 
                         _vehicleObject addWeaponCargoGlobal [_prize select 0, 1];
                         
                         [_vehicleObject, _prize select 0] call ExileServer_lottery_crate_xtras;

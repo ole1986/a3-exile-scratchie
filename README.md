@@ -1,78 +1,58 @@
-# Scratchies (*lottery like* minigame for Exile Mod)
+## Scratchies (*lottery like* minigame for Exile Mod)
 <sub>Version: 1.3 | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
 
 <p align="center">
-    <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize" />
-    <img src="images/usexm8.jpg" width="250" title="Use the scratchie in XM8" />
+    <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize">
+    <img src="images/usexm8.jpg" width="250" title="Use the scratchie in XM8">
 </p>
 <p align="center">
-    <img src="images/prize-vehicle.jpg" width="250" title="Prize Vehicle" />
-    <img src="images/prize-poptabs.jpg" width="250" title="Prize Poptabs" />
-</p>
-<p align="center">
-    <img src="images/prize-weapon.jpg" width="250" title="Prize Weapons" />
-    <img src="images/winner-message.png" width="250" title="Winner Message Offroad" />
+    <img src="images/prize-vehicle.jpg" width="250" title="Prize Vehicle">
+    <img src="images/prize-poptabs.jpg" width="250" title="Prize Poptabs">
+    <img src="images/prize-weapon.jpg" width="250" title="Prize Weapons">
 </p>
 
 Videos: [PART #1](https://www.youtube.com/watch?v=zVPXYhhYrbU) [PART #2](https://www.youtube.com/watch?v=2MC45ycnOkc) - thanks to Rythron
 
-## Requirements
+## Installation
 
-+ Arma 3 Tools (installed through Steam - https://community.bistudio.com/wiki/Arma_3_Tools_Installation)
+This README uses some placeholders
 
-## Build
+Placeholder            | Description
+---------------------- | -------------
+&lt;MissionFile&gt;    | Exile.&lt;Mapname&gt;.pbo (E.g. Exile.Altis.pbo )
+&lt;ExileServerMod&gt; | @ExileServer Exile server mod folder located in game directory.
 
-You can either use Visual Studio code or the powershell to build and patch all necessary files
+### Required Tools
 
-Use the below command to build server pbo
++ PBO Manager (I use cpbo from http://www.kegetys.fi/category/gaming/armamods/)
++ Notepad++ or any other Text Editor (https://notepad-plus-plus.org/)
++ Exile Mod version 0.9.8
 
-```
-PS> .\setup.ps1 -Build
-```
+### Database setup
 
-Use the below command to patch your mission file (a dialog will be prompted to select the mission pbo)
-
-```
-PS> .\setup.ps1 -PatchMission
-```
-
-## Install
-
-After you have followed the steps from the **Build** chapter, the below files are being generated.
-Copy these files to your server into the **correct** destination directory
-
-Location                                 | Destination Folder
----------------------------------------- | ----------------------
-@MissionFile\<Your.Mission.pbo>          | mpmission
-@ExileServer\addons\scratchie_server.pbo | @ExileServer\addons\
-
-## Database setup
-
-+ Import the mysql file `mysql\lottery.sql` into your exile database (either through mysql or phpmyadmin).
++ Import the mysql file `mysql\lottery.sql` into your exile database (through mysql or phpmyadmin for example).
 + Copy and repalce the `mysql\exile.ini` with the file located in `<ExileServerMod>\extDB\sql_custom_v2\exile.ini`
 
-## Battleye
+### MissionFile
 
-When you use Battleye, please amend the below BE files to allow remote calls
++ **Unpack** the `<MissionFile>`
 
-**scripts.txt**
++ Copy the folders `MissionFile\overrides` and `MissionFile\addons` into your `<MissionFile>` directory
++ Modify the `<MissionFile>\config.cpp` and add the below line inside `class CfgExileCustomCode`
 
-+ add the below to the end of line `7 remoteexec`
+```
+ExileClient_gui_xm8_slide_apps_onOpen = "overrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf";
+```
 
- `!="remoteExecCall [\"ExileServer_lottery_network_request\"," !="remoteExecCall ['ExileServer_lottery_network_request',"`
- 
-**remoteexec.txt**
++ Modify the `<MissionFile>\description.ext` and add the below line inside  `class CfgRemoteExec -> class Functions`
 
-+ add the below to the end of line `7 ""`
+```
+class ExileServer_lottery_network_request { allowedTargets=2; };
+```
 
- `!"ExileServer_lottery_network_request"`
+### Exile Server
 
-## Finish
-
-After all the below steps are properly done, please RESTART the Arma 3 server and log into the game.
-You should see three additional "apps" when opening XM8
-
-## Advanced Setup
++ Copy the `ExileServerMod\scratchie_server.pbo` into your `<ExileServerMod>\addons` directory
 
 ### Buy Scratchies from Traders
 
@@ -100,9 +80,20 @@ _officeTrader addAction ["<t color='#FFFFFF'>Buy Scratchie(200,-)</t>", { ["buy"
 _officeTrader addAction ["<t color='#c72651'>Get Prize!</t>", { ["get",ExileClientSessionId, player, ""] remoteExecCall ["ExileServer_lottery_network_request", 2]; }];
 ```
 
-### Developer Hints
+### Battleye
 
-This project was developed using Visual Studio Code and uses git to manage the source code.
-Feel free to Pull Request your changes.
+**scripts.txt**
 
-Thank you
++ add the below to the end of line `7 addAction` (important for office trade action menu)
+
+ `!="officeTrader addAction"`
+ 
++ add the below to the end of line `7 remoteexec`
+
+ `!="remoteExecCall [\"ExileServer_lottery_network_request\"," !="remoteExecCall ['ExileServer_lottery_network_request',"`
+ 
+**remoteexec.txt**
+
++ add the below to the end of line `7 ""`
+
+ `!"ExileServer_lottery_network_request"`

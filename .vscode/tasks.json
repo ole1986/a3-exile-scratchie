@@ -1,23 +1,17 @@
 {
     "version": "0.1.0",
     "name": "PBO Task",
-    "command": "powershell",
-    "echoCommand": true,
-    "args": [
-        "${workspaceRoot}\\setup.ps1"
-    ],
+    "command": "cmd",
+    "isShellCommand": true, 
+    "showOutput": "always",
+    "args": ["/C"],
     "tasks": [
         {
+            "taskName": "Pack",
             "suppressTaskName": true,
-            "taskName": "Build",
             "isBuildCommand": true,
-            "args": [ "-Build"]
-        },
-        {
-            "suppressTaskName": true,
-            "taskName": "Patch Mission",
             "args": [
-                "-PatchMission"
+                "cpbo -y -p \"${workspaceRoot}\\ExileServerMod\\scratchie_server\" \"${workspaceRoot}\\ExileServerMod\\scratchie_server.pbo\""
             ]
         }
     ]
