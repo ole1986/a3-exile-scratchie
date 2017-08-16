@@ -19,6 +19,41 @@ function Get-SteamPath()
     return $steamPath
 }
 
+function Pack-Pbo($SourcePath, $DestinationPath, $PrivateKeyPath)
+{
+    $AddonBuilder = "$(Get-SteamPath)/steamapps/common/Arma 3 Tools/AddonBuilder/AddonBuilder.exe"
+    if(!(Test-Path $AddonBuilder)) {
+        Write-Host -ForegroundColor Red "Addon Builder from Arma 3 Tools not found"
+        Write-Host "You can install it through Steam - https://community.bistudio.com/wiki/Arma_3_Tools_Installation"
+        Exit
+    }
+    $SourcePath = [System.IO.Path]::GetFullPath($SourcePath)
+    $DestinationPath = [System.IO.Path]::GetFullPath($DestinationPath)
+    
+    if(($PrivateKeyPath) -and (Test-Path $PrivateKeyPath)) {
+        $PrivateKeyPath = [System.IO.Path]::GetFullPath($PrivateKeyPath)
+        $ERR = & "$AddonBuilder" "$SourcePath" "$DestinationPath" -packonly -sign="$PrivateKeyPath"
+    } else {
+        $ERR = & "$AddonBuilder" "$SourcePath" "$DestinationPath" -packonly
+    }
+    
+
+    $ERR = & "$AddonBuilder" "$SourcePath" "$DestinationPath" -packonly
+    Write-Output $ERR
+    if($ERR -match "\[FATAL\]") {
+        Write-Host -ForegroundColor Red "An error occured while executing the Arma 3 Tools."
+        Write-Host -ForegroundColor Red "Please make sure STEAM is running"
+        return $false
+    }
+    return $true
+}
+
+function Unpack-Pbo($SourceFile, $DestinationPath)
+{
+    $BankRev = "$(Get-SteamPath)/steamapps/common/Arma 3 Tools/BankRev/BankRev.exe"
+    & "$BankRev" -f "$DestinationPath" "$SourceFile"
+}
+
 function Get-FileName($initialDirectory)
 {
     [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") | Out-Null
@@ -54,19 +89,11 @@ function Get-CodeBlockLastLineNumber($content, $FuncName)
     return $i - 1
 }
 
-$steamPath = Get-SteamPath
-$AddonBuilder = "$steamPath/steamapps/common/Arma 3 Tools/AddonBuilder/AddonBuilder.exe"
-$BankRev = "$steamPath/steamapps/common/Arma 3 Tools/BankRev/BankRev.exe"
-
-if(!(Test-Path $AddonBuilder)) {
-    Write-Host -ForegroundColor Red "Addon Builder from Arma 3 Tools not found"
-    Write-Host "You can install it through Steam - https://community.bistudio.com/wiki/Arma_3_Tools_Installation"
-    Exit
-}
-
 if($Build) {
-    Write-Host -ForegroundColor DarkYellow "AddonBuilder: Building Server PBO"
-    & "$AddonBuilder" "$PSScriptRoot\\source\\scratchie_server" "$PSScriptRoot\\@ExileServer\\addons" -packonly
+    Write-Host "Building Server PBO"
+    if(!(Pack-Pbo "source\scratchie_server" "@ExileServer\addons")) {
+        Exit
+    }
     Write-Host "###################"
     Write-Host "# BUILD COMPLETED #"
     Write-Host "###################"
@@ -84,16 +111,18 @@ if($PatchMission) {
     $extractedFolder = (Get-Item $missionFile).Basename
     New-Item "$env:TEMP\build" -ItemType Directory -Force | Out-Null
     $extractedPath = "$env:TEMP\build\$extractedFolder"
-    & "$BankRev" -f "$env:TEMP\build" "$missionFile"
-    Write-Host "Copying mission related files into $extractedPath"
-    Copy-Item "$PSScriptRoot\source\MissionFile\*" -Destination "$extractedPath" -Recurse -Force
+    # Unpack the mission file
+    Unpack-Pbo "$missionFile" "$env:TEMP\build"
 
     $content = Get-Content "$extractedPath\config.cpp"
-
+    
     if(!$content) {
         Write-Host -ForegroundColor Red "The config.cpp could not be found in the mission file $extractedFolder - Canceled"
         Exit
     }
+
+    Write-Host "Copying mission related files into $extractedPath"
+    Copy-Item "source\MissionFile\*" -Destination "$extractedPath" -Recurse -Force
 
     Write-Host -NoNewline "Trying to patch file $extractedPath\config.cpp..."
     if(!($content -match "ExileClient_gui_xm8_slide_apps_onOpen")) {
@@ -135,13 +164,7 @@ if($PatchMission) {
     }
 
     Write-Host "Building mission file '$extractedFolder'..."
-    $ERR = & "$AddonBuilder" "$extractedPath" "$PSScriptRoot\\@MissionFile" -packonly
-    $ERR.GetType()
-    Write-Output $ERR
-    Write-Host
-    if($ERR -match "\[FATAL\]") {
-        Write-Host -ForegroundColor Red "An error occured while executing the Arma 3 Tools."
-        Write-Host -ForegroundColor Red "Please make sure STEAM is running"
+    if(! (Pack-Pbo "$extractedPath" "@MissionFile")) {
         Exit
     }
 
