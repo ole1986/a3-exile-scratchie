@@ -1,14 +1,16 @@
 ## Scratchies (*lottery like* minigame for Exile Mod)
-<sub>Version: 1.4 | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
+<sub>Version: 1.0.0 ExAd | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
+
+PLEASE NOTE: This is the ExAd version - Scratchies without ExAd can be found [here](https://github.com/ole1986/a3-exile-scratchie)
 
 <p align="center">
-    <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize">
-    <img src="images/usexm8.jpg" width="250" title="Use the scratchie in XM8">
+    <img src="images/scratchie-xm8apps.PNG" width="250" title="Buy a scratch, get the prize">
+    <img src="images/scratchie-xm8apps-inside.PNG" width="250" title="Use the scratchie in XM8">
 </p>
 <p align="center">
     <img src="images/prize-vehicle.jpg" width="250" title="Prize Vehicle">
     <img src="images/prize-poptabs.jpg" width="250" title="Prize Poptabs">
-    <img src="images/prize-weapon.jpg" width="250" title="Prize Weapons">
+    <img src="images/winner-message.png" width="250" title="Prize Weapons">
 </p>
 
 Videos: [PART #1](https://www.youtube.com/watch?v=zVPXYhhYrbU) [PART #2](https://www.youtube.com/watch?v=2MC45ycnOkc) - thanks to Rythron
@@ -16,31 +18,66 @@ Videos: [PART #1](https://www.youtube.com/watch?v=zVPXYhhYrbU) [PART #2](https:/
 ## Requirements
 
 + Arma 3 Tools (installed through Steam - https://community.bistudio.com/wiki/Arma_3_Tools_Installation)
++ ExAd mod (https://github.com/Bjanski/ExAd)
 
 ## Build
 
-You can either use Visual Studio code or the powershell to build and patch all necessary files
-
+You can either use Visual Studio code or the powershell to build from source
 Use the below command to build server pbo
 
 ```
 PS> .\setup.ps1 -Build
 ```
 
-Use the below command to patch your mission file (a dialog will be prompted to select the mission pbo)
+## ExAd Implementation
+
+**Requirements**
+
+Please note that the Scratchie plugin has the following ExAd dependencies
+
+* Core
+* XM8
+
+**Installation**
+
+* Copy the folder "source\ExAdClient\Scratchie" into "mpmissions\exile.\ExAdClient"
+
+* Open the "mpmissions\exile.\ExAdClient\CfgFunctions.cpp" and add the following line inside `class ExAd`
 
 ```
-PS> .\setup.ps1 -PatchMission
+#include "Scratchie\CfgFunctions.cpp"
 ```
 
-## Install
+* Amend the `class CfgXM8` from "mpmissions\exile.\config.cpp" the following (to make Scratchie app available in XM8)
 
-After you have followed the steps from the **Build** chapter, the below files are being generated.
-Copy these files to your server into the **correct** destination directory
+```
+class CfgXM8 {
+    extraApps[] = {"ExAd_Scratchie"};
+
+    class ExAd_Scratchie
+	{
+		title = "Play Scratchie";
+		controlID = 80000;
+        logo = "ExAdClient\Scratchie\icons\scratchie.paa";
+        onLoad = "ExAdClient\Scratchie\onLoad.sqf";
+		onOpen = "ExAdClient\Scratchie\onOpen.sqf";
+		onClose = "ExAdClient\Scratchie\onClose.sqf";
+	};
+}
+```
+
+* Customize the "mpmissions\exile.\description.ext" by adding the below line into `class CfgRemoteExec` -> `class Functions`
+
+```
+class ExileServer_lottery_network_request { allowedTargets = 2; }
+```
+
+## Server Installation
+
+Copy the below files into the same destination folder of the server Arma 3 root directory
 
 Location                                 | Destination Folder
 ---------------------------------------- | ----------------------
-@MissionFile\<Your.Mission.pbo>          | mpmission
 @ExileServer\addons\scratchie_server.pbo | @ExileServer\addons\
 
 ## Database setup
@@ -64,42 +101,7 @@ When you use Battleye, please amend the below BE files to allow remote calls
 
  `!"ExileServer_lottery_network_request"`
 
-## Finish
+## Finalize
 
-After all the below steps are properly done, please RESTART the Arma 3 server and log into the game.
-You should see three additional "apps" when opening XM8
+Once all the steps are done, a restart of the Arma 3 server is necessary.
 
-## Advanced Setup
-
-### Buy Scratchies from Traders
-
-*The below code can be used to buy a scratchie from any object you decide*
-
-`["buy",ExileClientSessionId, player, ""] remoteExecCall ["ExileServer_lottery_network_request", 2];`
-
-*The below code can be used to get the prize, when player has won*
-
-`["get",ExileClientSessionId, player, ""] remoteExecCall ["ExileServer_lottery_network_request", 2];`
-
-**Example implementation to Buy/Get Prize from the office (&lt;MissionFile&gt;\initPlayerLocal.sqf)**
-```
-_officeTrader = [
-    "Exile_Trader_Office",
-    "GreekHead_A3_04",
-    ["InBaseMoves_SittingRifle1"],
-    [0, -0.15, -0.45],
-    180.008,
-    _chair
-]
-call ExileClient_object_trader_create;
-// add the buy scratchie and get prize as action menu to the office trader
-_officeTrader addAction ["<t color='#FFFFFF'>Buy Scratchie(200,-)</t>", { ["buy",ExileClientSessionId, player, ""] remoteExecCall ["ExileServer_lottery_network_request", 2]; }];
-_officeTrader addAction ["<t color='#c72651'>Get Prize!</t>", { ["get",ExileClientSessionId, player, ""] remoteExecCall ["ExileServer_lottery_network_request", 2]; }];
-```
-
-### Developer Hints
-
-This project was developed using Visual Studio Code and uses git to manage the source code.
-Feel free to Pull Request your changes.
-
-Thank you

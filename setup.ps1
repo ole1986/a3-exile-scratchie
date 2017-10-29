@@ -1,6 +1,5 @@
 Param(
-    [switch]$Build = $false,
-    [switch]$PatchMission = $false
+    [switch]$Build = $false
 )
 
 function Get-SteamPath()
