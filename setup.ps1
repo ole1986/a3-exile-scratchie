@@ -1,5 +1,6 @@
 Param(
-    [switch]$Build = $false
+    [switch]$Build = $false,
+    [switch]$PatchMission = $false
 )
 
 function Get-SteamPath()
@@ -96,7 +97,7 @@ if($Build) {
 }
 
 if($PatchMission) {
-    Write-Host -ForegroundColor Green "Please select your mission file from the dialog:"
+    Write-Host -ForegroundColor Green "Please select your mission containing ExAd:"
     $missionFile = Get-FileName($PSScriptRoot)
 
     if(!$missionFile) {
@@ -107,44 +108,60 @@ if($PatchMission) {
     $extractedFolder = (Get-Item $missionFile).Basename
     New-Item "$env:TEMP\build" -ItemType Directory -Force | Out-Null
     $extractedPath = "$env:TEMP\build\$extractedFolder"
+
+    # Cleanup existing folder
+    Write-Host "Cleanup previous temp folder.."
+    Remove-Item -Recurse -Force "$extractedPath\*"
+
     # Unpack the mission file
     Unpack-Pbo "$missionFile" "$env:TEMP\build"
 
-    $content = Get-Content "$extractedPath\config.cpp"
+    $content = Get-Content "$extractedPath\config.cpp" -ErrorAction SilentlyContinue
     
     if(!$content) {
         Write-Host -ForegroundColor Red "The config.cpp could not be found in the mission file $extractedFolder - Canceled"
         Exit
     }
 
+    $ExAdConfig = Get-Content "$extractedPath\ExAdClient\CfgFunctions.cpp" -ErrorAction SilentlyContinue
+
+    if(!$ExAdConfig) {
+        Write-Host -ForegroundColor Red "The ExAdClient could not be found in $extractedFolder - Please install ExAd first (incl. XM8 plugin)"
+        Exit;
+    }
+
+    if(!(Test-Path "$extractedPath\ExAdClient\XM8" -PathType Container)) {
+        Write-Host -ForegroundColor Red "The XM8 plugin is not installed in ExAdClient - Please install the XM8 plugin (copying the floder is NOT enough)"
+        Exit;
+    }
+
     Write-Host "Copying mission related files into $extractedPath"
-    Copy-Item "source\MissionFile\*" -Destination "$extractedPath" -Recurse -Force
+    Copy-Item "source\ExAdClient\*" -Destination "$extractedPath\ExAdClient" -Recurse -Force
 
-    Write-Host -NoNewline "Trying to patch file $extractedPath\config.cpp..."
-    if(!($content -match "ExileClient_gui_xm8_slide_apps_onOpen")) {
-        
-        $lastLineNumber = Get-CodeBlockLastLineNumber $content -FuncName "CfgExileCustomCode"
+    Write-Host -NoNewline "Trying to patch ExAdClient\CfgFunctions.cpp..."
 
+    if(!($ExAdConfig -match "\s+?#include ""Scratchie\\CfgFunctions.cpp""")) {
+        $lastLineNumber = Get-CodeBlockLastLineNumber $ExAdConfig -FuncName "ExAd"
         if(!$lastLineNumber) {
-            Write-Host -ForegroundColor Red "FAILED (User action required - Sorry)"
+            Write-Host -ForegroundColor Red "FAILED (ExAd class not found)"
             Exit
         }
-        
-        $content[$lastLineNumber] += "`n    ExileClient_gui_xm8_slide_apps_onOpen = ""overrides\ExileClient_gui_xm8_slide_apps_onOpen.sqf"";"
-        $content | Set-Content "$extractedPath\config.cpp"
+
+        $ExAdConfig[$lastLineNumber] += "`n`t#include ""Scratchie\CfgFunctions.cpp"""
+        $ExAdConfig | Set-Content "$extractedPath\ExAdClient\CfgFunctions.cpp"
+        Write-Host -ForegroundColor Green "OK"
     } else {
         Write-Host -ForegroundColor Yellow "Already patched"
     }
-    
-    Write-Host ""
-    $content = Get-Content "$extractedPath\description.ext"
+
+    $content = Get-Content "$extractedPath\description.ext" -ErrorAction SilentlyContinue
 
     if(!$content) {
         Write-Host -ForegroundColor Red "The description.ext could not be found in the mission file $extractedFolder - Very Strange! - Canceled"
         Exit
     }
 
-    Write-Host -NoNewline "Trying to patch file $extractedPath\description.ext..."
+    Write-Host -NoNewline "Trying to patch description.ext..."
 
     if(!($content -match "class ExileServer_lottery_network_request")) {
         $lastLineNumber = Get-CodeBlockLastLineNumber $content -FuncName "Functions"
@@ -155,9 +172,52 @@ if($PatchMission) {
 
         $content[$lastLineNumber] += "`n        class ExileServer_lottery_network_request { allowedTargets=2; };"
         $content | Set-Content "$extractedPath\description.ext"
+        Write-Host -ForegroundColor Green "OK"
     } else {
         Write-Host -ForegroundColor Yellow "Already patched"
     }
+
+    $content = Get-Content "$extractedPath\config.cpp" -ErrorAction SilentlyContinue
+
+    if(!$content) {
+        Write-Host -ForegroundColor Red "The config.cpp could not be found in the mission file $extractedFolder - Canceled"
+        Exit
+    }
+
+    Write-Host -NoNewline "Trying to patch config.cpp (CfgXM8)..."
+
+    $lastLineNumber = Get-CodeBlockLastLineNumber $content -FuncName "CfgXM8"
+    if(!$lastLineNumber) {
+        Write-Host -ForegroundColor Red "FAILED (CfgXM8 is missing in the config.cpp)"
+        Exit
+    }
+
+    $scratchieLine = Get-CodeBlockLastLineNumber $content -FuncName "ExAd_Scratchie"
+
+    if(!$scratchieLine) {
+        $content[$lastLineNumber] += "
+    class ExAd_Scratchie
+    {
+        title = ""Play Scratchie"";
+        controlID = 80000;
+        logo = ""ExAdClient\Scratchie\icons\scratchie.paa"";
+        onLoad = ""ExAdClient\Scratchie\onLoad.sqf"";
+        onOpen = ""ExAdClient\Scratchie\onOpen.sqf"";
+        onClose = ""ExAdClient\Scratchie\onClose.sqf"";
+    };"
+    
+        $extraApps = $content | Select-String -Pattern "extraApps\[\]"
+
+        if($extraApps) {
+            $content[$extraApps.LineNumber - 1] = $extraApps.Line -replace "\};", ",""ExAd_Scratchie""};"
+        }
+
+        $content | Set-Content "$extractedPath\config.cpp"
+        Write-Host -ForegroundColor Green "OK"
+    } else {
+        Write-Host -ForegroundColor Yellow "Already patched"
+    }
+    
 
     Write-Host "Building mission file '$extractedFolder'..."
     if(! (Pack-Pbo "$extractedPath" "@MissionFile")) {

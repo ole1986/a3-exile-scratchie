@@ -12,6 +12,12 @@
             "taskName": "Build",
             "isBuildCommand": true,
             "args": [ "-Build"]
+        },
+        {
+            "suppressTaskName": true,
+            "taskName": "Patch Mission",
+            "isBuildCommand": true,
+            "args": [ "-PatchMission"]
         }
     ]
 }
