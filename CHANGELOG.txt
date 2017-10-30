@@ -1,3 +1,6 @@
+1.0.1
+- recovered PatchMission switch for setup.ps1
+
 1.0.0
 
 - initial version for ExAd

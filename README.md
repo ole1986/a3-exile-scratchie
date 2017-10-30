@@ -1,5 +1,5 @@
 ## Scratchies (*lottery like* minigame for Exile Mod)
-<sub>Version: 1.0.0 ExAd | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
+<sub>Version: 1.0.1 ExAd | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
 
 PLEASE NOTE: This is the ExAd version - Scratchies without ExAd can be found [here](https://github.com/ole1986/a3-exile-scratchie)
 
