@@ -29,7 +29,16 @@ Use the below command to build server pbo
 PS> .\setup.ps1 -Build
 ```
 
-## ExAd Implementation
+Use the below command to patch your mission file (a dialog will be prompted to select the mission pbo).
+PLEASE NOTE: Your mission file must contain the ExAd files. Otherwise an error will appear
+
+```
+PS> .\setup.ps1 -PatchMission
+```
+
+## ExAd Implementation (manually)
+
+If for some reason the command `setup.ps1 -PatchMission` does not work for you, the below steps are required to become the Scratchies available in XM8
 
 **Requirements**
 
@@ -74,11 +83,12 @@ class ExileServer_lottery_network_request { allowedTargets = 2; }
 
 ## Server Installation
 
-Copy the below files into the same destination folder of the server Arma 3 root directory
+Copy the below files into the destination folder of the Arma 3 server root directory
 
-Location                                 | Destination Folder
+Location                                 | Server Directory
 ---------------------------------------- | ----------------------
 @ExileServer\addons\scratchie_server.pbo | @ExileServer\addons\
+@MissionFile\Exile.&lt;Map&gt;.pbo       | mpmissions
 
 ## Database setup
 
