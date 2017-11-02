@@ -1,6 +1,8 @@
 ## Scratchies (*lottery like* minigame for Exile Mod)
 <sub>Version: 1.4 | Author: ole1986 | This extension is licensed under the Arma Public Licence</sub>
 
+[![Arma 1.76](https://img.shields.io/badge/Arma-1.76-blue.svg)](https://dev.arma3.com/post/sitrep-00203) [![Exile 1.0.3 Lemon](https://img.shields.io/badge/Exile-1.0.3%20Lemon-C72651.svg)](http://www.exilemod.com/devblog/103-update-lemon-r34/)
+
 <p align="center">
     <img src="images/buyget.jpg" width="250" title="Buy a scratch, get the prize">
     <img src="images/usexm8.jpg" width="250" title="Use the scratchie in XM8">
