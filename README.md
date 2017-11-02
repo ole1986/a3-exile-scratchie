@@ -3,7 +3,6 @@
 [![Author](https://img.shields.io/badge/Author-ole1986-green.svg)](https://github.com/ole1986)
 [![Arma 1.76](https://img.shields.io/badge/Arma-1.76-blue.svg)](https://dev.arma3.com/post/sitrep-00203)
 [![Exile 1.0.3 Lemon](https://img.shields.io/badge/Exile-1.0.3%20Lemon-C72651.svg)](http://www.exilemod.com/devblog/103-update-lemon-r34/)
-[![ExAd](https://img.shields.io/badge/ExAd-Yes-C72651.svg)](https://github.com/Bjanski/ExAd)
 [![License](https://img.shields.io/badge/License-APL-blue.svg)](https://www.bistudio.com/community/licenses/arma-public-license)
 
 <p align="center">
