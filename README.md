@@ -19,83 +19,26 @@ Videos: [PART #1](https://www.youtube.com/watch?v=zVPXYhhYrbU) [PART #2](https:/
 
 ## Requirements
 
-+ Arma 3 Tools (installed through Steam - https://community.bistudio.com/wiki/Arma_3_Tools_Installation)
-+ ExAd mod (https://github.com/Bjanski/ExAd)
+* Arma 3 with [ExileMod 1.0.4](http://www.exilemod.com/downloads/)
 
-## Build
+## Installation
 
-You can either use Visual Studio code or the powershell to build from source
-Use the below command to build server pbo
+By default this package is shipped with a `build` folder containing all neccessary file to be copied. Please follow the below steps to install the required server and mission files
 
-```
-PS> .\setup.ps1 -Build
-```
+* Copy the folder `build\@ScratchieServer` into your Arma 3 server directory
+* Copy the mission file located in `build\@MissionFile` into your Arma 3 serer `mpmission` directory
 
-Use the below command to patch your mission file (a dialog will be prompted to select the mission pbo).
-PLEASE NOTE: Your mission file must contain the ExAd files. Otherwise an error will appear
+To allow the scratchie mod using some database commands it is important replace the `@ExileServer\extDB\sql_custom_v2\exile.ini` with `mysql\exile.ini` and overwrite
 
-```
-PS> .\setup.ps1 -PatchMission
-```
+## Database Setup
 
-## ExAd Implementation (manually)
-
-If for some reason the command `setup.ps1 -PatchMission` does not work for you, the below steps are required to become the Scratchies available in XM8
-
-**Requirements**
-
-Please note that the Scratchie plugin has the following ExAd dependencies
-
-* Core
-* XM8
-
-**Installation**
-
-* Copy the folder "source\ExAdClient\Scratchie" into "mpmissions\exile.\ExAdClient"
-
-* Open the "mpmissions\exile.\ExAdClient\CfgFunctions.cpp" and add the following line inside `class ExAd`
+The Scratchie mod requires some database tables being installed onto your database server (similar to the ExileMod).
+In the below example, we use the **mysql client from command line** install the `mysql\scratchie.sql` file
 
 ```
-#include "Scratchie\CfgFunctions.cpp"
+C:\User\xxx\Downloads\a3-exile-scratchie> mysql -uexile -p exile
+mysql> source mysql\scratchie.sql
 ```
-
-* Amend the `class CfgXM8` from "mpmissions\exile.\config.cpp" the following (to make Scratchie app available in XM8)
-
-```
-class CfgXM8 {
-    extraApps[] = {"ExAd_Scratchie"};
-
-    class ExAd_Scratchie
-	{
-		title = "Play Scratchie";
-		controlID = 80000;
-        logo = "ExAdClient\Scratchie\icons\scratchie.paa";
-        onLoad = "ExAdClient\Scratchie\onLoad.sqf";
-		onOpen = "ExAdClient\Scratchie\onOpen.sqf";
-		onClose = "ExAdClient\Scratchie\onClose.sqf";
-	};
-}
-```
-
-* Customize the "mpmissions\exile.\description.ext" by adding the below line into `class CfgRemoteExec` -> `class Functions`
-
-```
-class ExileServer_lottery_network_request { allowedTargets = 2; }
-```
-
-## Server Installation
-
-Copy the below files into the destination folder of the Arma 3 server root directory
-
-Location                                 | Server Directory
----------------------------------------- | ----------------------
-@ExileServer\addons\scratchie_server.pbo | @ExileServer\addons\
-@MissionFile\Exile.&lt;Map&gt;.pbo       | mpmissions
-
-## Database setup
-
-+ Import the mysql file `mysql\lottery.sql` into your exile database (either through mysql or phpmyadmin).
-+ Copy and repalce the `mysql\exile.ini` with the file located in `<ExileServerMod>\extDB\sql_custom_v2\exile.ini`
 
 ## Battleye
 
@@ -113,7 +56,39 @@ When you use Battleye, please amend the below BE files to allow remote calls
 
  `!"ExileServer_lottery_network_request"`
 
-## Finalize
+## Run Arma 3
 
-Once all the steps are done, a restart of the Arma 3 server is necessary.
+### Server
 
+Once all steps are properly done (without errors) it is time to restart the server. Most important here is to include the `@ScratchieServer` mod into the startup parameter. See below example
+
+`arma3server.exe -autoInit  "-profiles=xxx" "-config=xxx\server.cfg" -serverMod=@ScratchieServer;@ExileServer -mod=@Exile`
+
+### Client
+
+Make sure `@Exile` mod is enabled when running Arma 3
+
+# Advanced User / Developer
+
+As this project uses the ArmaDev extension for Visual Studio Code (vscode) the instruction will strongly focus on the use of this extension.
+
+## Requirements
+
+* All requirements from the **Installation** chapter
+* [Arma 3 Tools](https://community.bistudio.com/wiki/Arma_3_Tools_Installation) (for advanced configuration)
+* [ArmaDev extension](https://marketplace.visualstudio.com/items?itemName=ole1986.arma-dev) for (for development)
+
+**PLEASE NOTE:** This guide is addressed to advanced users and developers
+
+## Configure Scratchie
+
+You can find the configuration (including explanation) in `source\scratchie_server\config.cpp`.
+This configuration file can be customized and must be repacked into the `build\@ScratchieServer\addons\scratchie_server.pbo`
+
+To repack the pbo file, please use the following ArmaDev extension command from vscode: `Arma 3: Build`
+
+## Patch a mission file
+
+While this is shipped with the "common" mission file, fully patched and ready to run, you may want to build your own mission file.
+
+(Instruction will follow soon)
