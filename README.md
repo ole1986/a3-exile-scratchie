@@ -28,7 +28,7 @@ By default this package is shipped with a `build` folder containing all neccessa
 * Copy the folder `build\@ScratchieServer` into your Arma 3 server directory
 * Copy the mission file located in `build\@MissionFile` into your Arma 3 serer `mpmission` directory
 
-To allow the scratchie mod using some database commands it is important replace the `@ExileServer\extDB\sql_custom_v2\exile.ini` with `mysql\exile.ini` and overwrite
+To allow the scratchie mod using some database commands it is important replace the `@ExileServer\extDB\sql_custom_v2\exile.ini` with its `mysql\exile.ini` and overwrite it
 
 ## Database Setup
 
