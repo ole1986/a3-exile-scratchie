@@ -17,7 +17,7 @@
             "suppressTaskName": true,
             "taskName": "Patch Mission",
             "isBuildCommand": true,
-            "args": [ "-PatchMission"]
+            "args": [ "-PatchMission"] 
         }
     ]
-}
+} 
