@@ -1,0 +1,16 @@
+{
+	"title": "Scratchies",
+	"name": "Scratchie",
+	"buildPath": "build",
+	"privateKey": "",
+	"serverDirs": [
+		"source/scratchie_server"
+	],
+	"serverUse32bit": true,
+	"serverMods": ["@ExileServer"],
+	"serverParams": "-mod=@Exile \"-config=C:\\Users\\ole\\AppData\\Local\\Arma 3\\ArmaDevServer\\server-custom.cfg\"",
+	"clientMods": [
+		"@Exile"
+	],
+	"version": 1
+}
