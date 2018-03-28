@@ -29,7 +29,11 @@ function Pack-Pbo($SourcePath, $DestinationPath, $PrivateKeyPath)
     }
     $SourcePath = [System.IO.Path]::GetFullPath($SourcePath)
     $DestinationPath = [System.IO.Path]::GetFullPath($DestinationPath)
+    $TempPath = "$env:TEMP\$([System.IO.Path]::GetFileName($SourcePath))"
     
+    # Cleanup AddonBuilder temp path
+    Remove-Item $TempPath -Recurse -Force -ErrorAction SilentlyContinue
+
     if(($PrivateKeyPath) -and (Test-Path $PrivateKeyPath)) {
         $PrivateKeyPath = [System.IO.Path]::GetFullPath($PrivateKeyPath)
         $ERR = & "$AddonBuilder" "$SourcePath" "$DestinationPath" -packonly -sign="$PrivateKeyPath"
@@ -111,7 +115,7 @@ if($PatchMission) {
 
     # Cleanup existing folder
     Write-Host "Cleanup previous temp folder.."
-    Remove-Item -Recurse -Force "$extractedPath\*"
+    Remove-Item -Recurse -Force "$extractedPath\*" -ErrorAction SilentlyContinue
 
     # Unpack the mission file
     Unpack-Pbo "$missionFile" "$env:TEMP\build"
