@@ -19,7 +19,7 @@ class CfgPatches {
 class CfgFunctions {
     class ScratchieServer {
         class main {
-            file="scratchie_server\bootstrap";
+            file="x\scratchie_server\bootstrap";
             class preInit { 
                 preInit = 1;
             };
