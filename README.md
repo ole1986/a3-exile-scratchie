@@ -1,8 +1,8 @@
 ## Scratchies (*lottery like* minigame for Exile Mod)
 [![Version](https://img.shields.io/badge/Version-1.4-green.svg)](https://github.com/ole1986/a3-exile-scratchie/releasese)
 [![Author](https://img.shields.io/badge/Author-ole1986-green.svg)](https://github.com/ole1986)
-[![Exile 1.0.4 Pineapple](https://img.shields.io/badge/Exile-1.0.3%20Lemon-C72651.svg)](http://www.exilemod.com/downloads/)
-[![Arma 1.80](https://img.shields.io/badge/Arma-1.76-blue.svg)]
+[![Exile](https://img.shields.io/badge/Exile-1.0.4%20Pineapple-C72651.svg)](http://www.exilemod.com/downloads/)
+[![Arma](https://img.shields.io/badge/Arma-1.80-blue.svg)]
 [![License](https://img.shields.io/badge/License-APL-blue.svg)](https://www.bistudio.com/community/licenses/arma-public-license)
 
 <p align="center">
