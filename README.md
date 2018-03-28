@@ -75,8 +75,9 @@ As this project uses the ArmaDev extension for Visual Studio Code (vscode) the i
 ## Requirements
 
 * All requirements from the **Installation** chapter
-* [Arma 3 Tools](https://community.bistudio.com/wiki/Arma_3_Tools_Installation) (for advanced configuration)
-* [ArmaDev extension](https://marketplace.visualstudio.com/items?itemName=ole1986.arma-dev) for (for development)
+* [Arma 3 Tools](https://community.bistudio.com/wiki/Arma_3_Tools_Installation)
+* [Visual Studio Code](https://code.visualstudio.com/)
+* [ArmaDev extension](https://marketplace.visualstudio.com/items?itemName=ole1986.arma-dev)
 
 **PLEASE NOTE:** This guide is addressed to advanced users and developers
 
