@@ -98,10 +98,13 @@ You can use the ArmaDev extension from vscode with the command `Arma 3: Build` t
 The below patched mission files are available in `build\MissionFile` and can be used as is to make Scratchie buttons available in XM8.
 
 * Exile.Altis
+* Exile.Malden
+* Exile.Namalsk
+* Exile.Tanoa
 
 If you have a custom mission (which most of you have I guess), please continue reading
 
-### Edit description.ext
+#### Edit description.ext
 
 Add the below line at the bottom of `CfgRemoteExec -> Functions` (see animation)
 
@@ -111,7 +114,7 @@ class ExileServer_lottery_network_request { allowedTargets = 2; }
 
 ![Mission description.ext](images/guide-mission-description.gif)
 
-### Edit config.cpp
+#### Edit config.cpp
 
 Customize the buttons for XM8 by adding the below lines into the predefined `XM8_AppXX_Button` class.
 In this example button 06 - 08 are being used
@@ -142,6 +145,6 @@ resource = "";
 
 ![Mission config.cpp](images/guide-mission-config.gif)
 
-### Copy Button Images
+#### Copy Button Images
 
 Copy the `source\MissionFile\Scratchie` folder into the root of your mission file to make the button images available
