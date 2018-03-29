@@ -8,7 +8,7 @@
 	],
 	"serverUse32bit": true,
 	"serverMods": ["@ExileServer"],
-	"serverParams": "-mod=@Exile \"-config=C:\\Users\\ole\\AppData\\Local\\Arma 3\\ArmaDevServer\\server-custom.cfg\"",
+	"serverParams": "-mod=@Exile \"-config=C:\\Users\\ole\\AppData\\Local\\Arma 3\\ArmaDevServer\\server-exile.cfg\"",
 	"clientMods": [
 		"@Exile"
 	],
