@@ -70,7 +70,7 @@ Make sure `@Exile` mod is enabled when running Arma 3
 
 # Advanced User / Developer
 
-As this project uses the ArmaDev extension for Visual Studio Code (vscode) the instruction will strongly focus on the use of this extension.
+As this project uses the ArmaDev extension for Visual Studio Code (vscode). The instruction will strongly focus on the use of this extension.
 
 ## Requirements
 
@@ -83,10 +83,15 @@ As this project uses the ArmaDev extension for Visual Studio Code (vscode) the i
 
 ## Configure Scratchie
 
-You can find the configuration (including explanation) in `source\scratchie_server\config.cpp`.
-This configuration file can be customized and must be repacked into the `build\@ScratchieServer\addons\scratchie_server.pbo`
+You can configure several settings for the Scratchies mod in the configuration file `source\scratchie_server\config.cpp`. To name a few
 
-To repack the pbo file, please use the following ArmaDev extension command from vscode: `Arma 3: Build`
+* Setup the `Interval` on how often player can win
+* Customize the `Price` how much a scratchie cost
+* Define what prizes a player can win through the `PrizeType[]` setting (vehicle, poptab or weapon)
+* and much more...
+
+All changes made in this files requires to repack the scratchie_server.pbo and upload to the server.
+You can use the ArmaDev extension from vscode with the command `Arma 3: Build` to repack it.
 
 ## Patch mission file
 
@@ -136,3 +141,7 @@ resource = "";
 ```
 
 ![Mission config.cpp](images/guide-mission-config.gif)
+
+### Copy Button Images
+
+Copy the `source\MissionFile\Scratchie` folder into the root of your mission file to make the button images available
