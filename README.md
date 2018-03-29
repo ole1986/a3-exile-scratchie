@@ -88,8 +88,51 @@ This configuration file can be customized and must be repacked into the `build\@
 
 To repack the pbo file, please use the following ArmaDev extension command from vscode: `Arma 3: Build`
 
-## Patch a mission file
+## Patch mission file
 
-While this is shipped with the "common" mission file, fully patched and ready to run, you may want to build your own mission file.
+The below patched mission files are available in `build\MissionFile` and can be used as is to make Scratchie buttons available in XM8.
 
-(Instruction will follow soon)
+* Exile.Altis
+
+If you have a custom mission (which most of you have I guess), please continue reading
+
+### Edit description.ext
+
+Add the below line at the bottom of `CfgRemoteExec -> Functions` (see animation)
+
+```
+class ExileServer_lottery_network_request { allowedTargets = 2; }
+```
+
+![Mission description.ext](images/guide-mission-description.gif)
+
+### Edit config.cpp
+
+Customize the buttons for XM8 by adding the below lines into the predefined `XM8_AppXX_Button` class.
+In this example button 06 - 08 are being used
+
+```c
+/* play button */
+textureNoShortcut = "scratchie\icons\scratchie.paa";
+text = "Play Scratchie";
+onButtonClick = "['use',ExileClientSessionId, player, ''] remoteExecCall ['ExileServer_lottery_network_request', 2];";
+resource = "";
+```
+
+```c
+/* buy button */
+textureNoShortcut = "scratchie\icons\scratchie-buy.paa";
+text = "Buy Scratchie";
+onButtonClick = "['buy',ExileClientSessionId, player, ''] remoteExecCall ['ExileServer_lottery_network_request', 2];";
+resource = "";
+```
+
+```c
+/* get prize */
+textureNoShortcut = "scratchie\icons\scratchie-prize.paa";
+text = "Get Prize";
+onButtonClick = "['get',ExileClientSessionId, player, ''] remoteExecCall ['ExileServer_lottery_network_request', 2];";
+resource = "";
+```
+
+![Mission config.cpp](images/guide-mission-config.gif)

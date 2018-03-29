@@ -1,2 +1,4 @@
 update-server.sh
 build/@Scratchie
+# skip vcode workspaces
+*.code-workspace
