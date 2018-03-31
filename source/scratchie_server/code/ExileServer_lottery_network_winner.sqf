@@ -60,7 +60,7 @@ try
                 _text = "%1 won " + (str _curPrize) + " poptabs";
             };
             case "WeaponPrize": {
-                _text = "%1 won " + getText(configFile >> "CfgWeapons" >> _curPrize >> "displayName");
+                _text = "%1 won " + getText(configFile >> "CfgVehicles" >> _curPrize >> "displayName") + " crate";
             };
             default { _text = "%1 won a prize"; };
         };
@@ -78,7 +78,7 @@ try
                 ["dynamicTextRequest", [format [_text, name _x], 0, 2, "#ffffff"]] call ExileServer_system_network_send_broadcast;
             };
             // tell it to the winner explicitly
-            [_x, "dynamicTextRequest", [format [_text, "You have"], 0, 2, "#ffffff"]] call ExileServer_system_network_send_to;
+            [_x, "dynamicTextRequest", [format [_text, "You "], 0, 2, "#ffffff"]] call ExileServer_system_network_send_to;
         } forEach _winners;
     };
     

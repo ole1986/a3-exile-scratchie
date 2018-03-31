@@ -36,9 +36,7 @@ try
             _prize = format ["getLotteryPrize:%1", getPlayerUID _player] call ExileServer_system_database_query_selectSingle;
             
             if !(isNil "_prize") then 
-            {
-                format ["setPrizeDelivered:%1", getPlayerUID _player] call ExileServer_system_database_query_fireAndForget;
-                
+            {               
                 switch (_prize select 1) do
                 {
                     case "VehiclePrize":
@@ -79,20 +77,20 @@ try
                         // find a safe position
                         _safepos = [position _player, 5, 80, 3, 0, 20, 0] call BIS_fnc_findSafePos;
                         
-                        _vehicleObject = createVehicle ["Box_NATO_Wps_F", _safepos, [], 0, "CAN_COLLIDE"]; 
-                        _vehicleObject addWeaponCargoGlobal [_prize select 0, 1];
-                        
-                        [_vehicleObject, _prize select 0] call ExileServer_lottery_crate_xtras;
+                        _vehicleObject = createVehicle [_prize select 0, _safepos, [], 0, "CAN_COLLIDE"]; 
                         
                         // teleport player to the crate
                         _player setPosATL [(_safepos select 0) - 1, _safepos select 1, 0];
                         // do a spawn and sleep X minutes until crate will be deleted
                         [_vehicleObject, _rand] spawn {  sleep (_this select 1); deleteVehicle (_this select 0);  };
                         // inform the player
-                        [_player, "dynamicTextRequest", [format ["YOUR PRIZE SPAWND IN THE CRATE<br/><br/>Lifetime %1 minute(s)", round(_rand / 60)], 0, 2, "#ffffff"]] call ExileServer_system_network_send_to;
+                        [_player, "dynamicTextRequest", [format ["Crate spawned in front of you<br/><br/>Lifetime %1 minute(s)", round(_rand / 60)], 0, 2, "#ffffff"]] call ExileServer_system_network_send_to;
                     };
                 };
                 
+                // mark the prize as delivered
+                format ["setPrizeDelivered:%1", getPlayerUID _player] call ExileServer_system_database_query_fireAndForget;
+
             } else {
                 [_player, "toastRequest", ["InfoTitleOnly", ["No prize for you :-("]]] call ExileServer_system_network_send_to;
             };
