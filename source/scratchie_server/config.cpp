@@ -52,8 +52,7 @@ class CfgSettings
         AnnounceWinner = 1;
         
         /**
-         * @var integer 1 = VERY RARE CHANCE, 50 = NEARLY 50:50 CHANCE 100 = PERFECTLY FOR TESTING (default: 3)
-         *              Check out http://www.unknown-sanctuary.tk/scratchie.php to roughly see results
+         * @var integer 1 = VERY RARE CHANCE, 50 = NEARLY 50:50 CHANCE 100 = PERFECTLY FOR TESTING (default: 2)
          */ 
         ChanceToWin = 2;
         
