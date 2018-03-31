@@ -1,13 +1,15 @@
-## Scratchies (*lottery like* minigame for Exile Mod)
+## Scratchies (gambling for Exile Mod 1.0.4)
 [![Version](https://img.shields.io/badge/Version-1.5-green.svg)](https://github.com/ole1986/a3-exile-scratchie/releasese)
 [![Author](https://img.shields.io/badge/Author-ole1986-green.svg)](https://github.com/ole1986)
 [![Exile](https://img.shields.io/badge/Exile-1.0.4%20Pineapple-C72651.svg)](http://www.exilemod.com/downloads/)
 ![Arma](https://img.shields.io/badge/Arma-1.80-blue.svg)
 [![License](https://img.shields.io/badge/License-APL-blue.svg)](https://www.bistudio.com/community/licenses/arma-public-license)
 
+Scratchies is a gambling mod for Arma 3 Exile to let players win prizes, like Vehicles, Poptabs or Weapon crates.
+The player buys a Scratchie, participate a round and can get the prize at any time through the XM8 apps
+
 <p align="center">
-    <img src="images/scratchie-xm8apps.PNG" width="250" title="Buy a scratch, get the prize">
-    <img src="images/scratchie-xm8apps-inside.PNG" width="250" title="Use the scratchie in XM8">
+    <img src="images/scratchie-xm8.PNG" width="250" title="Buy a scratch, get the prize">
 </p>
 <p align="center">
     <img src="images/prize-vehicle.jpg" width="250" title="Prize Vehicle">
