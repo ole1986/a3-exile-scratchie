@@ -104,9 +104,10 @@ try
                 format["setPlayerMoney:%1:%2", _playerMoney, _player getVariable ["ExileDatabaseID", 0]] call ExileServer_system_database_query_fireAndForget;
                 format["playerAddScratchie:%1", getPlayerUID _player] call ExileServer_system_database_query_fireAndForget;
 
-                [_player, "toastRequest", ["SuccessTitleOnly", ["You bought a scratchie"]]] call ExileServer_system_network_send_to;
-                [_player, "lockerResponse", []] call ExileServer_system_network_send_to;
                 _scratchie = _scratchie + 1;
+
+                [_player, "toastRequest", ["SuccessTitleOnly", [format["You bought a scratchie<br/>Total: %1", _scratchie]]]] call ExileServer_system_network_send_to;
+                [_player, "lockerResponse", []] call ExileServer_system_network_send_to;
             } else {
                 [_player, "toastRequest", ["ErrorTitleOnly", ["Not enough money"]]] call ExileServer_system_network_send_to;
             };
@@ -125,7 +126,7 @@ try
 
                     [_player, "toastRequest", ["SuccessTitleOnly", [format["Your lucky number: %1", _number]]]] call ExileServer_system_network_send_to;
                 } else {
-                    [_player, "toastRequest", ["InfoTitleOnly", ["No more scratchies :("]]] call ExileServer_system_network_send_to;
+                    [_player, "toastRequest", ["InfoTitleOnly", ["No more scratchies. You need to buy first"]]] call ExileServer_system_network_send_to;
                 };
             };
         };
